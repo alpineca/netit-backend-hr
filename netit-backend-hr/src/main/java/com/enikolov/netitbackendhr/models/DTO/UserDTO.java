@@ -1,35 +1,28 @@
-package com.enikolov.netitbackendhr.models.users;
+package com.enikolov.netitbackendhr.models.DTO;
 
 import com.enikolov.netitbackendhr.enums.UserRole;
+import com.enikolov.netitbackendhr.models.users.User;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name="td_users")
-public class User {
-
-    @Id()
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class UserDTO {
 
     private String username;
-
     private String password;
-
+    private String matchingPassword;
     private String mail;
-
     private UserRole userRole;
 
-    public User(){
+    public UserDTO(){
 
     }
 
-    public long getId() {
-        return id;
-    }
+    public User createUserEntity(){
+        User entity = new User();
+        entity.setMail(this.mail);
+        entity.setUsername(this.username);
+        entity.setPassword(this.password);
+        entity.setUserRole(this.userRole);
 
-    public void setId(int id) {
-        this.id = id;
+        return entity;
     }
 
     public String getUsername() {
@@ -46,6 +39,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
     }
 
     public String getMail() {
