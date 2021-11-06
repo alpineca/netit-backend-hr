@@ -16,6 +16,8 @@ public class Employee {
 
     private String firstName;
     private String lastName;
+    @OneToOne
+    private User user;
     private int age;
 
     @OneToOne

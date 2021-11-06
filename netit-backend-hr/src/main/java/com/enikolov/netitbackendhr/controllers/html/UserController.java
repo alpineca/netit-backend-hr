@@ -51,12 +51,15 @@ public class UserController {
         return null;
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable int id){
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") int id){
+
+//        Integer idInteger = Integer.valueOf((int) id);
         Optional<User> httpResult = this.userRepository.findById(id);
 
         if(httpResult.isPresent()) {
-            this.userRepository.deleteById(id);
+            User user = this.userRepository.getById(id);
+            this.userRepository.deleteById(user.getId());
 //            return new RedirectView("/login");
 
             return "login";
