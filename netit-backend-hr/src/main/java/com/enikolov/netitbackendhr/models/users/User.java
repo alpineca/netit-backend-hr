@@ -1,8 +1,10 @@
 package com.enikolov.netitbackendhr.models.users;
 
 import com.enikolov.netitbackendhr.enums.UserRole;
+import com.enikolov.netitbackendhr.models.general.Employer;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="td_users")
@@ -20,11 +22,14 @@ public class User {
 
     private UserRole userRole;
 
+    @OneToMany(mappedBy = "user")
+    private List<Employer> employers;
+
     public User(){
 
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

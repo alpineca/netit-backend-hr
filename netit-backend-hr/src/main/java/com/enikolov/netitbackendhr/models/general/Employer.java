@@ -3,6 +3,7 @@ package com.enikolov.netitbackendhr.models.general;
 import com.enikolov.netitbackendhr.models.extra.infoContent.Benefits;
 import com.enikolov.netitbackendhr.models.extra.infoContent.Category;
 import com.enikolov.netitbackendhr.models.extra.Contacts;
+import com.enikolov.netitbackendhr.models.users.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +19,8 @@ public class Employer {
     private int employees;
     private String name;
     private String information;
+    @ManyToOne
+    private User user;
 
     @OneToOne
     private Contacts contacts;
