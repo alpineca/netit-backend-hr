@@ -2,47 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register page</title>
+    <title>Change email page</title>
 </head>
 <body>
 
 <div>
-    <h1>Register page</h1>
+    <h1>Enter your new email address</h1>
 </div>
 <div>
     <form
             method="post"
-            th:action="@{/register/user}"
-            th:object="${user}">
+            th:action="@{/users/change-email/process}"
+            th:object="${change_mail}">
 
-        <label>Username</label>
+        <label>User ID</label>
         <input
                 type="text"
-                placeholder="Username"
-                th:field="*{username}">
-        <label>Password</label>
-        <input
-                type="password"
-                placeholder="password"
-                th:field="*{password}">
-        <label>Password</label>
-        <input
-                type="password"
-                placeholder="password"
-                th:field="*{matchingPassword}">
+                placeholder="User ID"
+                th:field="*{userId}">
         <label>Email</label>
         <input
                 type="text"
                 placeholder="Email address"
-                th:field="*{mail}">
-
-        <label>I am:</label>
-        <select th:field="*{userRole}">
-            <option th:each="type : ${T(com.enikolov.netitbackendhr.enums.UserRole).values()}"
-                    th:value="${type}" th:text="${type}">
-            </option>
-        </select>
-        <button type="submit">Create user</button>
+                th:field="*{newMail}">
+        <button type="submit">Change email</button>
 
     </form>
 

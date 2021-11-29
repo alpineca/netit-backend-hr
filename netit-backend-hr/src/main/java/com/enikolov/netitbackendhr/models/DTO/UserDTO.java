@@ -5,11 +5,12 @@ import com.enikolov.netitbackendhr.models.users.User;
 
 public class UserDTO {
 
+    // private int id
     private String username;
     private String password;
-    private String matchingPassword;
+    private String confirmPassword;
     private String mail;
-    private UserRole userRole;
+    private String userRole;
 
     public UserDTO(){
 
@@ -17,10 +18,10 @@ public class UserDTO {
 
     public User createUserEntity(){
         User entity = new User();
-        entity.setMail(this.mail);
-        entity.setUsername(this.username);
-        entity.setPassword(this.password);
-        entity.setUserRole(this.userRole);
+        entity.setMail(     this.mail);
+        entity.setUsername( this.username);
+        entity.setPassword( this.password);
+        entity.setUserRole( this.userRole);
 
         return entity;
     }
@@ -41,12 +42,12 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getMatchingPassword() {
-        return matchingPassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getMail() {
@@ -57,11 +58,11 @@ public class UserDTO {
         this.mail = mail;
     }
 
-    public UserRole getUserRole() {
+    public String getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRole userRole) {
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 }

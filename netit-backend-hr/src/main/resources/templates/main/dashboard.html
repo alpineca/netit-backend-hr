@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard page</title>
+</head>
+<body>
+
+<div>
+    <h1>Wellcome, <span th:text="${loggedUser.getUsername()}"></span></h1>
+</div>
+
+<div>
+    <h1>Your role is ---> <span th:text="${loggedUser.getUserRole()}"></span></h1>
+</div>
+</body>
+</html>

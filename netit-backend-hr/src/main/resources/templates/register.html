@@ -3,48 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Register page</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
 <div>
-    <h1>Register page</h1>
-</div>
-<div>
+    <div class="container">
+        <h1 class="form_title">Registered page</h1>
+        <p>Please enter your registration data</p>
+        <hr/>
     <form
             method="post"
             th:action="@{/register/user}"
             th:object="${user}">
 
-        <label>Username</label>
+        <label class="reg_label">Username</label>
         <input
                 type="text"
                 placeholder="Username"
                 th:field="*{username}">
-        <label>Password</label>
+        <label class="reg_label">Password</label>
         <input
                 type="password"
                 placeholder="password"
                 th:field="*{password}">
-        <label>Password</label>
+        <label class="reg_label">Password</label>
         <input
                 type="password"
                 placeholder="password"
                 th:field="*{matchingPassword}">
-        <label>Email</label>
+        <label class="reg_label">Email</label>
         <input
                 type="text"
                 placeholder="Email address"
                 th:field="*{mail}">
 
-        <label>I am:</label>
-        <select th:field="*{userRole}">
+        <label class="reg_label">I am:</label>
+        <select th:field="*{selectedAccountType}">
             <option th:each="type : ${T(com.enikolov.netitbackendhr.enums.UserRole).values()}"
                     th:value="${type}" th:text="${type}">
             </option>
         </select>
-        <button type="submit">Create user</button>
+        <hr/>
+        <button class="register_button" type="submit">Create user</button>
 
     </form>
+    </div>
 
 </div>
 </body>
