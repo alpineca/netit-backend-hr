@@ -18,12 +18,16 @@ public class User {
 
     private String password;
 
+    @Transient
+    private String confirmPassword;
+
     private String mail;
 
-    private UserRole userRole;
+    private String userRole;
+    
 
-    @OneToMany(mappedBy = "user")
-    private List<Employer> employers;
+    // @OneToMany(mappedBy = "user")
+    // private List<Employer> employers;
 
     public User(){
 
@@ -61,11 +65,11 @@ public class User {
         this.mail = mail;
     }
 
-    public UserRole getUserRole() {
+    public String getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRole userRole) {
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 }

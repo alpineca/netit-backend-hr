@@ -1,5 +1,6 @@
 body {
-    background-color: teal;
+    background-color: #646C79;
+    color: #E6E2DD;
 }
 * {
     box-sizing: border-box;
@@ -8,15 +9,49 @@ body {
     margin: auto;
     width: 50%;
     padding: 16px;
-    background-color: white;
+    background-color: #1F3044;
     box-shadow: 10px 10px 10px 0px rgb(0, 0, 0, 0.7);
 }
 input[type='text'],
 input[type='password'] {
     width: 100%;
     padding: 15px;
-    margin: 5px 0 20px 0;
+    margin: 5px 0 17px 0;
     display: inline-block;
+    border: none;    
+    font-size: 20px;
+    font-weight: bold;
+    background: #252724;
+}
+input[type='text']:focus,
+input[type='password']:focus {
+    background-color: #242524;
+    color:#FB9039;
+    outline: none;
+
+}
+.register_button{
+    background-color: #FB9039;
+    color: white;
+    padding: 16px;
     border: none;
-    background: whitesmoke;
+    cursor: pointer;
+    width: 100%;
+    margin: auto;
+    margin-top: 15px;
+    opacity: 0.8;
+
+
+}
+.register_button:hover{
+    opacity: 1;
+}
+
+.reg_label{
+    color: #E6E2DD;
+    font-size: 25px;
+}
+
+.form_title {
+    color: #FB9039;
 }

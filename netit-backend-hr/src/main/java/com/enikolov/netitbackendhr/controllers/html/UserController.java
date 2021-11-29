@@ -1,5 +1,6 @@
 package com.enikolov.netitbackendhr.controllers.html;
 
+import com.enikolov.netitbackendhr.models.DTO.ChangeMailDTO;
 import com.enikolov.netitbackendhr.models.DTO.UserDTO;
 import com.enikolov.netitbackendhr.models.users.User;
 import com.enikolov.netitbackendhr.repositories.users.UserRepository;
@@ -31,7 +32,7 @@ public class UserController {
     public RedirectView createUser(@ModelAttribute UserDTO entityDTO){
         User entity = entityDTO.createUserEntity();
 
-        if(entityDTO.getPassword().equals(entityDTO.getMatchingPassword())){
+        if(entityDTO.getPassword().equals(entityDTO.getConfirmPassword())){
             this.userRepository.save(entity);
             return new RedirectView("/login");
         }
@@ -46,27 +47,52 @@ public class UserController {
         return null;
     }
 
-    @PutMapping("/update/{id}")
-    public RedirectView updateUser(){
+    @GetMapping("/change-email")
+    public String changeEmail(Model model){
+
+        ChangeMailDTO changeMail = new ChangeMailDTO();
+
+        model.addAttribute("change_mail", changeMail);
+
+        return "/change-email";
+    }
+
+    @PostMapping("/change-email/process")
+    public String processChangeEmail(@ModelAttribute ChangeMailDTO changeMailDTO){
+        int userId = changeMailDTO.getUserId();
+        String newMail = changeMailDTO.getNewMail();
+        Optional<User> httpResult = this.userRepository.findById(userId);
+
+        if(httpResult.isPresent()){
+            User entity = this.userRepository.getById(userId);
+            entity.setMail(newMail);
+
+            this.userRepository.save(entity);
+
+            return "success";
+        }
+        return "fail";
+    }
+
+    @GetMapping("/change-password")
+    public RedirectView changePassword(){
+
+
         return null;
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") int id){
-
-//        Integer idInteger = Integer.valueOf((int) id);
+    public RedirectView deleteUser(@PathVariable("id") int id){
         Optional<User> httpResult = this.userRepository.findById(id);
 
         if(httpResult.isPresent()) {
             User user = this.userRepository.getById(id);
             this.userRepository.deleteById(user.getId());
-//            return new RedirectView("/login");
+            return new RedirectView("/success");
 
-            return "login";
         }
 
-//        return new RedirectView("/error");
-        return "error";
+        return new RedirectView("/fail");
     }
 
 }
