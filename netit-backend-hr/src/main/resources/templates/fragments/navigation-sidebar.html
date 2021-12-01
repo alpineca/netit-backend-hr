@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="navigation--sidebar" th:fragment="navigation-sidebar">					
+	<div class="sidebar-wrapper">
+		<div class="navigation--workspace-panel">
+			<div
+					class="navigation--workspace-panel-title">Кампания</div>
+			<ul>
+				<li class="navigation--workspace-item">Нова кампания</li>
+				<li class="navigation--workspace-item">Моите кампании</li>
+			</ul>
+		</div>
+		<div class="navigation--workspace-panel">
+			<div
+					class="navigation--workspace-panel-title">HR агенти</div>
+			<ul>
+				<li class="navigation--workspace-item">Известия</li>
+				<li class="navigation--workspace-item">Преглед на агентите</li>
+			</ul>
+		</div>
+		<div class="navigation--workspace-panel">
+			<div
+					class="navigation--workspace-panel-title">Профил</div>
+			<ul>
+				<li class="navigation--workspace-item">Преглед</li>
+				<li class="navigation--workspace-item">Настройки</li>
+				<a th:href="@{/logout}">
+					<li class="navigation--workspace-item">Изход</li>
+				</a>
+			</ul>
+		</div>
+	</div>
+	</div>
+
+</body>
+</html>

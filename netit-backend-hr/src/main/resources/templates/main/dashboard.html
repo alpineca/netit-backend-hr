@@ -1,26 +1,80 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="ISO-8859-1">
     <title>Insert title here</title>
-    <link th:href="@{/style/global/global.css}" 	rel="stylesheet"/>
-    <link th:href="@{/style/global/util.css}" 		rel="stylesheet"/>
-    <link th:href="@{/style/global/form.css}" 		rel="stylesheet"/>
-    <link th:href="@{/style/page/dashboard.css}" 	rel="stylesheet"/>
+    <link th:href="@{/style/global/global.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/util.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/form.css}" rel="stylesheet" />
+    <link th:href="@{/style/page/dashboard.css}" rel="stylesheet" />
 </head>
+
 <body>
-
-<div id="app-wrapper">
-
-    <div class="navigation--main"
-            th:replace="fragments/navigation-sidebar :: navigation-sidebar">
+    
+    <div class="center ptb-36">
+        <img id="logo" src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.273/static/media/trello-logo-blue.f7627b3a.svg">
     </div>
+    <div id="app-wrapper">
 
-    <div id="content--main">
+        <div class="navigation--main" th:replace="fragments/navigation-sidebar :: navigation-sidebar">
+        </div>
 
+        <div id="content--main">
+
+            <div class="page-content-title">
+                <span>Active campaigns MyCompany Ltd</span>
+            </div>
+
+
+            <div class="content-box-wrapper">
+                <div>
+                    <span class="campaign-box-title">Campaign 1</span>
+                </div>
+                <div>
+                    <span>Morbi sed orci a justo imperdiet pretium. Donec porta risus orci, nec facilisis odio rhoncus
+                        in. Vestibulum ut est ac velit tristique aliquet at nec dui. Vestibulum malesuada ante ipsum,
+                        vitae ultrices nisi rutrum ac.</span>
+                </div>
+
+                <div class="campaign-box-footer">
+                    <span>Campaign footer</span>
+                    <span>Employers for review</span>
+                </div>
+            </div>
+            <div class="content-box-wrapper">
+                <div>
+                    <span class="campaign-box-title">Campaign 1</span>
+                </div>
+                <div>
+                    <span>Morbi sed orci a justo imperdiet pretium. Donec porta risus orci, nec facilisis odio rhoncus
+                        in. Vestibulum ut est ac velit tristique aliquet at nec dui. Vestibulum malesuada ante ipsum,
+                        vitae ultrices nisi rutrum ac.</span>
+                </div>
+
+                <div class="campaign-box-footer">
+                    <span>Campaign footer</span>
+                    <span>Employers for review</span>
+                </div>
+            </div>
+            <div class="content-box-wrapper">
+                <div>
+                    <span class="campaign-box-title">Campaign 1</span>
+                </div>
+                <div>
+                    <span>Morbi sed orci a justo imperdiet pretium. Donec porta risus orci, nec facilisis odio rhoncus
+                        in. Vestibulum ut est ac velit tristique aliquet at nec dui. Vestibulum malesuada ante ipsum,
+                        vitae ultrices nisi rutrum ac.</span>
+                </div>
+
+                <div class="campaign-box-footer">
+                    <span>Campaign footer</span>
+                    <span>Employers for review</span>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>
