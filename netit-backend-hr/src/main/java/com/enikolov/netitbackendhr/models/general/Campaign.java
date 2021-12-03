@@ -11,14 +11,16 @@ public class Campaign {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String publishDate;
-    @ManyToOne
-    private Employer employer;
-
+    private String publishTime;
+    @Column(name="employer_id")
+    private int employerId;
     private String title;
-
+    @Column(columnDefinition="TEXT")
     private String description;
+    private String category;
+    private int salaryMin;
+    private int salaryMax;
 
     @ManyToMany
     @JoinTable(
@@ -26,7 +28,7 @@ public class Campaign {
             joinColumns         = @JoinColumn(name = "campaign_id"),
             inverseJoinColumns  = @JoinColumn(name = "employee_id")
     )
-    private List<Employee> candidates;
+    private List<Employee> applicants;
 
     /**
      * @return the id
@@ -56,19 +58,19 @@ public class Campaign {
         this.publishDate = publishDate;
     }
 
-    /**
-     * @return the employer
-     */
-    public Employer getEmployer() {
-        return employer;
-    }
-
-    /**
-     * @param employer the employer to set
-     */
-    public void setEmployer(Employer employer) {
-        this.employer = employer;
-    }
+//    /**
+//     * @return the employer
+//     */
+//    public Employer getEmployer() {
+//        return employer;
+//    }
+//
+//    /**
+//     * @param employer the employer to set
+//     */
+//    public void setEmployer(Employer employer) {
+//        this.employer = employer;
+//    }
 
     /**
      * @return the title
@@ -101,17 +103,54 @@ public class Campaign {
     /**
      * @return the candidates
      */
-    public List<Employee> getCandidates() {
-        return candidates;
+    public List<Employee> getApplicants() {
+        return applicants;
     }
 
     /**
-     * @param candidates the candidates to set
+     * @param applicants the candidates to set
      */
-    public void setCandidates(List<Employee> candidates) {
-        this.candidates = candidates;
+    public void setApplicants(List<Employee> applicants) {
+        this.applicants = applicants;
     }
 
-    
+    public String getCategory() {
+        return category;
+    }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getSalaryMin() {
+        return salaryMin;
+    }
+
+    public void setSalaryMin(int salaryMin) {
+        this.salaryMin = salaryMin;
+    }
+
+    public int getSalaryMax() {
+        return salaryMax;
+    }
+
+    public void setSalaryMax(int salaryMax) {
+        this.salaryMax = salaryMax;
+    }
+
+    public String getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(String publishTime) {
+        this.publishTime = publishTime;
+    }
+
+    public int getEmployerId() {
+        return employerId;
+    }
+
+    public void setEmployerId(int employerId) {
+        this.employerId = employerId;
+    }
 }

@@ -1,7 +1,8 @@
-package com.enikolov.netitbackendhr.models.general;
+package com.enikolov.netitbackendhr.models.users;
 
 import com.enikolov.netitbackendhr.models.extra.infoContent.Benefits;
 import com.enikolov.netitbackendhr.models.extra.infoContent.Category;
+import com.enikolov.netitbackendhr.models.general.Campaign;
 import com.enikolov.netitbackendhr.models.users.User;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Employer {
     private String headquarterLocation;
     private String address;
     private String webSite;
+    @Column(columnDefinition="TEXT")
     private String description;
 
     // private User user;
@@ -27,7 +29,7 @@ public class Employer {
     @Column(name="user_id")
     private int userId;
 
-    @OneToMany(mappedBy = "employer")
+    @OneToMany(mappedBy = "employerId")
     private List<Campaign> campaigns;
 
     /**
