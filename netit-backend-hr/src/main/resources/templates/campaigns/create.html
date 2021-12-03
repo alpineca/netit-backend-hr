@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+    <link th:href="@{/style/global/global.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/util.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/form.css}" rel="stylesheet" />
+    <link th:href="@{/style/page/dashboard.css}" rel="stylesheet" />
+</head>
+
+<body>
+    
+    <div class="center ptb-36">
+        <img id="logo" src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.273/static/media/trello-logo-blue.f7627b3a.svg">
+    </div>
+    <div id="app-wrapper">
+
+        <div class="navigation--main" th:replace="fragments/navigation-sidebar :: navigation-sidebar">
+        </div>
+
+        <div id="content--main">
+    <!-- START PAGE CONTENT -->
+    <!-- ****************** -->
+        <div>
+            <form
+                    method="post"
+                    th:object="${campaign}"
+                    th:action="@{/campaigns/create}">
+                <input
+                        class="input"
+                        type="text"
+                        th:field="*{title}"
+                        placeholder="Campaign title">
+
+                <textarea
+                        class="input-textarea"
+                        th:field="*{description}"
+                        placeholder="Job description">
+
+                </textarea>
+                <select
+                        class="input"
+                        th:field="*{category}">
+                    <option selected th:value="Select">Category</option>
+                    <option th:value="Transport">Transport</option>
+                    <option th:value="IT">IT</option>
+                    <option th:value="Retail">Retail</option>
+                </select>
+
+                <label class="input-label">Salary</label>
+                <input
+                        class="input-salary"
+                        type="text"
+                        th:field="*{salaryMin}"
+                        placeholder="Min">
+                <input
+                        class="input-salary"
+                        type="text"
+                        th:field="*{salaryMax}"
+                        placeholder="Max">
+                <button class="input input-button input-button--green" type="submit">Create new campaign</button>
+
+            </form>
+        </div>
+            <!-- END PAGE CONTENT -->
+            <!-- ****************** -->
+        </div>
+    </div>
+
+</body>
+</html>

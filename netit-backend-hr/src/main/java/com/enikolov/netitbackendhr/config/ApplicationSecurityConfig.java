@@ -34,7 +34,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll().defaultSuccessUrl("/dashboard")
             .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"));
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/");
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .invalidateHttpSession(true)
+//                .deleteCookies("JSESSIONID");
     }
 
     

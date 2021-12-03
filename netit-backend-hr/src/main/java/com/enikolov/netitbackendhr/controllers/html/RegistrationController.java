@@ -3,7 +3,7 @@ package com.enikolov.netitbackendhr.controllers.html;
 import java.util.HashMap;
 
 import com.enikolov.netitbackendhr.models.DTO.UserDTO;
-import com.enikolov.netitbackendhr.models.general.Employer;
+import com.enikolov.netitbackendhr.models.users.Employer;
 import com.enikolov.netitbackendhr.models.users.User;
 import com.enikolov.netitbackendhr.repositories.users.EmployerRepository;
 import com.enikolov.netitbackendhr.repositories.users.UserRepository;

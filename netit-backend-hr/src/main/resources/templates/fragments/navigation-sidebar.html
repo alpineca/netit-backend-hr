@@ -9,10 +9,26 @@
 	<div class="sidebar-wrapper">
 		<div class="navigation--workspace-panel">
 			<div
-					class="navigation--workspace-panel-title">Кампания</div>
+					class="navigation--workspace-panel-title">Моите кампании</div>
 			<ul>
-				<li class="navigation--workspace-item">Нова кампания</li>
-				<li class="navigation--workspace-item">Моите кампании</li>
+				<a th:href="@{/campaigns/create}">
+					<li class="navigation--workspace-item">Нова кампания</li>
+				</a>
+				<a th:href="@{/campaigns/show-all}">
+					<li class="navigation--workspace-item">Виж всички</li>
+				</a>
+			</ul>
+		</div>
+		<div class="navigation--workspace-panel">
+			<div
+					class="navigation--workspace-panel-title">Мрежа</div>
+			<ul>
+				<a th:href="@{/campaigns/create}">
+					<li class="navigation--workspace-item">Всички работодатели</li>
+				</a>
+				<a th:href="@{/campaigns/show-all}">
+					<li class="navigation--workspace-item">Всички кампании</li>
+				</a>
 			</ul>
 		</div>
 		<div class="navigation--workspace-panel">

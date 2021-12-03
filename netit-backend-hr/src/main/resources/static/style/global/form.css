@@ -7,7 +7,19 @@
 	border			: solid #dedede 2px;
     border-radius	: 3px;
 }
-
+.input-salary{
+    width: 100px;
+    height			: 35px;
+	margin-bottom	: 12px;
+	padding			: 0 0 0 5px;
+	border			: solid #dedede 2px;
+    border-radius	: 3px;
+}
+.input-label{
+    display: block;
+    margin-bottom: 5px;
+    margin-left: 2px;
+}
 .input-button {
 	background		: #dedede;
 	color			: #fff;
@@ -35,7 +47,9 @@
 }
 
 .input-textarea{
-    text-align: start;
+    text-align      : start;
+    margin-bottom   : 10px;
+    padding         : 7px;
     display         : block;
     width           : 100%;
     min-height      : 100px;

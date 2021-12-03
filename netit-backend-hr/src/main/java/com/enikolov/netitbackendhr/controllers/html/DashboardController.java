@@ -2,7 +2,7 @@ package com.enikolov.netitbackendhr.controllers.html;
 
 import java.util.Optional;
 
-import com.enikolov.netitbackendhr.models.general.Employer;
+import com.enikolov.netitbackendhr.models.users.Employer;
 import com.enikolov.netitbackendhr.models.users.User;
 import com.enikolov.netitbackendhr.repositories.users.EmployerRepository;
 import com.enikolov.netitbackendhr.services.data.UserData;

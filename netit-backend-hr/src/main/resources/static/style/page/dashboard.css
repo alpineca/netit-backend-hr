@@ -5,20 +5,76 @@
     padding-top: 0px;
     display: block;
 }
+.content-box--new-campaign{
+    padding: 10px;
+    background: #76e37f;
+    border: solid #469e4d 1px;
+    border-radius: 5px;
+    margin: 7px;
+}
+.campaign-box-footer--salary{
+    float: left;
+    font-size: 13px;
+    font-style: italic;
+}
+.campaign-box-footer--publishing{
+    float: right;
+    font-size: 13px;
+    font-style: italic;
+    
+}
+.new-campaign-button{
+    font-size: 20px;
+    font-weight: 400;
+}
+.slick-info-text{
+    font-size: 25px;
+    font-style: italic;
+    color: cadetblue;
+}
+.box-header{
+    display: flex;
+}
+.campaign-box-description{
+    min-height: 50px;
+    margin: 20px;
+    margin-top: 12px;
+
+}
+.campaign-box-description--show-one{
+    min-height: 250px;
+    margin: 20px;
+    margin-top: 12px;
+    
+}
+.in-box-actions{
+    margin-right: 0px;
+    margin-left: auto;
+    font-size: 13px;
+}
 .campaign-box-title{
     font-size: 22px;
     font-weight: 500;
     margin-bottom: 15px;
-    padding-left: 10px;
+    padding-left: 0px;
+}
+.campaign-box-category{
+    margin-top: -20px;
+    margin-left: 7px;
+    font-size: 14px;
+    color: yellowgreen;
 }
 .campaign-box-footer{
     margin-top: 10px;
+    min-height: 21px;
     color: darkcyan;
 }
+
 .content-box-wrapper{
-    border: solid #026aa7 1px;
+    border-bottom: solid #dedede 1px;
     border-radius: 3px;
     padding: 7px;
+    padding-bottom: 0px;
     margin: 7px;
 }
 .page-content-title{
