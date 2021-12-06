@@ -1,0 +1,14 @@
+.filter-select{
+    width       : 100%;
+    display     : flex;
+    font-size   : 20px;
+    color       : cadetblue;
+}
+.filter-form{
+    display     : flex;
+}
+.filter-button{
+    width       : 150px;
+    margin-left : 10px;
+    font-size   : 17px;
+}

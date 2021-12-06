@@ -4,10 +4,11 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>All campaigns</title>
-    <link th:href="@{/style/global/global.css}" rel="stylesheet" />
-    <link th:href="@{/style/global/util.css}" rel="stylesheet" />
-    <link th:href="@{/style/global/form.css}" rel="stylesheet" />
-    <link th:href="@{/style/page/dashboard.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/global.css}"     rel="stylesheet" />
+    <link th:href="@{/style/global/util.css}"       rel="stylesheet" />
+    <link th:href="@{/style/global/form.css}"       rel="stylesheet" />
+    <link th:href="@{/style/page/dashboard.css}"    rel="stylesheet" />
+    <link th:href="@{/style/page/show-all.css}"     rel="stylesheet" />
 </head>
 
 <body>
@@ -21,10 +22,25 @@
         </div>
 
         <div id="content--main">
-                <div th:if="${userRole == 'EMPLOYER'}">
+                <div th:if="${user.userRole == 'EMPLOYER'}">
                     <a th:href="@{/campaigns/create}">
                         <span class="input input-button input-button--green ">Start new campaign</span>
                     </a>
+                </div>
+                <div th:if="${user.userRole == 'EMPLOYEE'}">
+                    <form   method="post"
+                            th:object="${employerSelected}"
+                            th:action="@{/campaigns/filter-by-employer}" 
+                            class="filter-form">
+                        <select class="input filter-select" th:field="*{id}">
+                            <option selected th:value="0">Choose employer</option>
+                            <option th:each="employer : ${allEmployers}" th:value="${employer.id}" th:text="${employer.companyName}"></option>
+                        </select>
+                        <button class="input input-button input-button--green filter-button" type="submit">Filter</button>
+                    </form>
+                </div>
+                <div th:if="${message != null}" th:class="${message.style}">
+                    <span th:text="${message.message}">InfoMessage</span>
                 </div>
             <div class="slick-info-text" th:if="${(error != null)}">
                 There is no campaigns. Lets create one?
@@ -54,7 +70,7 @@
                 </div>
                 <div class="campaign-box-category">
                     <span>Category <b th:text="${campaign.category}"></b></span>
-                    <span th:if="${userRole == 'EMPLOYEE'}"> Company <b th:text="${campaign.employerTitle}"></b></span>
+                    <span th:if="${user.userRole == 'EMPLOYEE'}"> Company <b th:text="${campaign.employerTitle}"></b></span>
                 </div>
                 
                 <div class="campaign-box-description">

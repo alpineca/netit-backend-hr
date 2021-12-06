@@ -1,5 +1,6 @@
 package com.enikolov.netitbackendhr.controllers.html;
 
+import com.enikolov.netitbackendhr.models.DTO.FilterByEmployer;
 import com.enikolov.netitbackendhr.models.general.Campaign;
 import com.enikolov.netitbackendhr.models.users.Employee;
 import com.enikolov.netitbackendhr.models.users.Employer;
@@ -9,8 +10,13 @@ import com.enikolov.netitbackendhr.repositories.general.CampaignRepository;
 import com.enikolov.netitbackendhr.repositories.users.EmployeeRepository;
 import com.enikolov.netitbackendhr.repositories.users.EmployerRepository;
 import com.enikolov.netitbackendhr.services.AppliesDataService;
+import com.enikolov.netitbackendhr.services.data.CampaignsDataService;
+import com.enikolov.netitbackendhr.services.data.EmployerDataService;
 import com.enikolov.netitbackendhr.services.data.UserDataService;
+import com.enikolov.netitbackendhr.components.InfoMessage;
 import com.enikolov.netitbackendhr.components.SystemClock;
+import com.enikolov.netitbackendhr.enums.MessageStyle;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +38,10 @@ public class CampaignController {
     @Autowired
     private UserDataService userData;
     @Autowired
+    private CampaignsDataService campaignsDataService;
+    @Autowired
+    private EmployerDataService employerDataService;
+    @Autowired
     private CampaignRepository campaignRepository;
     @Autowired
     private EmployerRepository employerRepository;
@@ -46,6 +56,7 @@ public class CampaignController {
     public String getShowAllPage(Model model){
         User user = userData.getLoggedUser();
         model.addAttribute("user", user);
+        List<Employer> allEmployers = this.employerDataService.getEmployerSelectionList();
         List<Campaign> campaignsList = null;
 
         if(user.getUserRole().equals("EMPLOYEE")){
@@ -64,9 +75,60 @@ public class CampaignController {
             return "campaigns/show-all";
         }
 
-        model.addAttribute("campaigns", campaignsList);
-        model.addAttribute("userRole", user.getUserRole());
+        InfoMessage message = (InfoMessage) model.asMap().get("message");
+        FilterByEmployer employerSelected = new FilterByEmployer();
+
+        model.addAttribute("allEmployers"       , allEmployers);
+        model.addAttribute("employerSelected"   , employerSelected);
+        model.addAttribute("message"            , message);
+        model.addAttribute("campaigns"          , campaignsList);
+
         return "campaigns/show-all";
+    }
+
+    @PostMapping("/campaigns/filter-by-employer")
+    public RedirectView getFilteredCampaigns(@ModelAttribute FilterByEmployer filterByEmployer, RedirectAttributes redirectAttributes){
+
+        int employerId = filterByEmployer.getId();
+        
+        System.out.println("****************");
+        System.out.println("EMPLOYER ID " + employerId);
+
+        List<Campaign> campaignsList = this.campaignsDataService.getFilteredByEmployerIdCampaigns(employerId);
+
+        redirectAttributes.addFlashAttribute("campaigns", campaignsList);
+
+        return new RedirectView("/campaigns/show-filtered");
+    }
+
+    @GetMapping("/campaigns/show-filtered")
+    public String showFilteredCampaigns(Model model){
+        User user = userData.getLoggedUser();
+        model.addAttribute("user", user);
+        List<Employer> allEmployers = this.employerDataService.getEmployerSelectionList();
+        FilterByEmployer employerSelected = new FilterByEmployer();
+        InfoMessage message             = (InfoMessage) model.asMap().get("message");
+        List<Campaign> campaignsList    = (List<Campaign>) model.asMap().get("campaigns");
+
+
+        model.addAttribute("allEmployers", allEmployers);
+        model.addAttribute("employerSelected", employerSelected);
+        model.addAttribute("message"    , message);
+        model.addAttribute("campaigns"  , campaignsList);
+
+        return "campaigns/show-all";
+    }
+
+    @GetMapping("/campaigns/show-one")
+    public String getShowOneCampaignPage(Model model){
+        User user = userData.getLoggedUser();
+        model.addAttribute("user", user);
+
+        Campaign campaign = (Campaign) model.asMap().get("campaign");
+
+        model.addAttribute("campaign", campaign);
+
+        return "campaigns/show-one";
     }
 
     @GetMapping("/campaigns/create")
@@ -78,9 +140,18 @@ public class CampaignController {
 
         return "campaigns/create";
     }
+    @GetMapping("/campaigns/edit")
+    public String getEditCampaignPage(Model model){
+        User user = userData.getLoggedUser();
+        model.addAttribute("user", user);
+
+        Campaign campaignEntity = (Campaign) model.asMap().get("campaignEntity");
+
+        return "campaigns/edit";
+    }
 
     @GetMapping("/campaigns/edit/{id}")
-    public String getEditCampaignPage(@PathVariable int id, Model model){
+    public RedirectView getEditCampaignPage(@PathVariable int id, Model model, RedirectAttributes redirectAttributes){
         User user = userData.getLoggedUser();
         model.addAttribute("user", user);
 
@@ -88,10 +159,14 @@ public class CampaignController {
         if(campaignModel.isPresent()) {
             Campaign campaignEntity = campaignModel.get();
 
-            model.addAttribute("campaignEntity", campaignEntity);
-            return "/campaigns/edit";
+            redirectAttributes.addFlashAttribute("campaignEntity", campaignEntity);
+            return new RedirectView("/campaigns/edit");
         }
-        return "/campaigns/show-all";
+
+        InfoMessage message = new InfoMessage("Campaign not found", MessageStyle.ERROR_MSG);
+        redirectAttributes.addFlashAttribute("message", message);
+
+        return new RedirectView("/campaigns/show-all");
     }
 
     @GetMapping("/campaigns/apply/{id}")
@@ -113,8 +188,9 @@ public class CampaignController {
     }
 
     @PostMapping("/campaigns/edit")
-    public RedirectView editCampaign(@ModelAttribute Campaign campaign){
-        User user = userData.getLoggedUser();
+    public RedirectView editCampaign(@ModelAttribute Campaign campaign, RedirectAttributes redirectAttributes){
+        User user           = userData.getLoggedUser();
+        InfoMessage message = new InfoMessage();
         Campaign entityToUpdate;
 
         Optional<Campaign> campaignModel = this.campaignRepository.getMyCampaign(campaign.getId(), user.getId());
@@ -127,53 +203,83 @@ public class CampaignController {
             entityToUpdate.setSalaryMax(campaign.getSalaryMax());
 
             this.campaignRepository.save(entityToUpdate);
+
+            message.setMessage("Campaign succsessfuly edited!");
+            message.setStyle(MessageStyle.SUCCESS_MSG);
+
+            redirectAttributes.addFlashAttribute("message", message);
+            return new RedirectView("/campaigns/show-all");
         }
+        
+        message.setMessage("Campaign not found!");
+        message.setStyle(MessageStyle.ERROR_MSG);
 
-
-
+        redirectAttributes.addFlashAttribute("message", message);
         return new RedirectView("/campaigns/show-all");
     }
 
     @GetMapping("/campaigns/delete/{id}")
-    public RedirectView deleteCampaign(@PathVariable int id){
+    public RedirectView deleteCampaign(@PathVariable int id, RedirectAttributes redirectAttributes){
         User thisUser = userData.getLoggedUser();
+        InfoMessage message = new InfoMessage();
         Optional<Campaign> campaignModel = this.campaignRepository.getMyCampaign(id, thisUser.getId());
+
         if(campaignModel.isPresent()){
             Campaign entityToDelete = campaignModel.get();
-
             this.campaignRepository.delete(entityToDelete);
+
+            message.setMessage("Your campaign is succsessfuly deleted!");
+            message.setStyle(MessageStyle.SUCCESS_MSG);
+
+            redirectAttributes.addFlashAttribute("message", message);
+            return new RedirectView ("/campaigns/show-all");
         }
 
+        message.setMessage("Campaign not found!");
+        message.setStyle(MessageStyle.ERROR_MSG);
+
+        redirectAttributes.addFlashAttribute("message", message);
         return new RedirectView ("/campaigns/show-all");
     }
 
     @GetMapping("/campaigns/view/{id}")
-    public String viewOneCampaign(@PathVariable int id, Model model){
-        User user = userData.getLoggedUser();
+    public RedirectView viewOneCampaign(@PathVariable int id, Model model, RedirectAttributes redirectAttributes){
+        User user           = userData.getLoggedUser();
         model.addAttribute("user", user);
+        InfoMessage message = new InfoMessage();
 
         Optional<Campaign> campaignModel = this.campaignRepository.findById(id);
         if(campaignModel.isPresent()){
             Campaign campaignEntity = campaignModel.get();
-            model.addAttribute("campaign", campaignEntity);
-            return "/campaigns/show-one";
+
+            redirectAttributes.addFlashAttribute("campaign", campaignEntity);
+            return new RedirectView("/campaigns/show-one");
         }
-//        model.addAttribute("campaign")
-        return "/campaigns/show-all";
+
+        message.setMessage("Campaign not found");
+        message.setStyle(MessageStyle.ERROR_MSG);
+
+        redirectAttributes.addFlashAttribute("message", message);
+        return new RedirectView("/campaigns/show-all");
     }
 
     @PostMapping("/campaigns/create")
-    public RedirectView createNewCampaign(@ModelAttribute Campaign newCampaign){
+    public RedirectView createNewCampaign(@ModelAttribute Campaign newCampaign, RedirectAttributes redirectAttributes){
         String date             = this.systemClock.getSystemDate();
         String time             = this.systemClock.getSystemTime();
+        InfoMessage message     = new InfoMessage();
 
         newCampaign.setPublishDate(date);
         newCampaign.setPublishTime(time);
         newCampaign.setEmployerId(this.userData.getLoggedEmployer().getId());
 
-
-
         this.campaignRepository.save(newCampaign);
+
+        message.setMessage("New campaign successfuly created!");
+        message.setStyle(MessageStyle.SUCCESS_MSG);
+
+        redirectAttributes.addFlashAttribute("message", message);
+
         return new RedirectView("show-all");
     }
 
