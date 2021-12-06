@@ -19,10 +19,15 @@
 	
 		<!-- SIGN UP : Component -->
 		<div id="auth-panel">
-		
 			<div class="center pb-24">
 				<span class="header">Loggin in trello</span>
 			</div>
+
+			<div 	th:if="${param.error}"
+					class="ERROR_MSG">
+				Username or password not valid!
+			</div>
+		
 		
 			<div>
                 <!--
