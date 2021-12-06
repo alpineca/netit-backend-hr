@@ -1,10 +1,16 @@
 package com.enikolov.netitbackendhr.controllers.html;
 
 import com.enikolov.netitbackendhr.models.general.Campaign;
+import com.enikolov.netitbackendhr.models.users.Employee;
+import com.enikolov.netitbackendhr.models.users.Employer;
 import com.enikolov.netitbackendhr.models.users.User;
+import com.enikolov.netitbackendhr.repositories.general.AppliesRepository;
 import com.enikolov.netitbackendhr.repositories.general.CampaignRepository;
-import com.enikolov.netitbackendhr.services.data.UserData;
-import com.enikolov.netitbackendhr.utils.SystemClock;
+import com.enikolov.netitbackendhr.repositories.users.EmployeeRepository;
+import com.enikolov.netitbackendhr.repositories.users.EmployerRepository;
+import com.enikolov.netitbackendhr.services.AppliesDataService;
+import com.enikolov.netitbackendhr.services.data.UserDataService;
+import com.enikolov.netitbackendhr.components.SystemClock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
@@ -22,16 +29,35 @@ public class CampaignController {
 
     @Autowired
     private SystemClock systemClock;
-
     @Autowired
-    private UserData userData;
-
+    private UserDataService userData;
     @Autowired
     private CampaignRepository campaignRepository;
+    @Autowired
+    private EmployerRepository employerRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
+    @Autowired
+    private AppliesRepository appliesRepository;
+    @Autowired
+    private AppliesDataService appliesDataService;
 
     @GetMapping("/campaigns/show-all")
     public String getShowAllPage(Model model){
-        List<Campaign> campaignsList = this.campaignRepository.findAllByEmployerId(this.userData.getLoggedEmployer().getId());
+        User user = userData.getLoggedUser();
+        model.addAttribute("user", user);
+        List<Campaign> campaignsList = null;
+
+        if(user.getUserRole().equals("EMPLOYEE")){
+            campaignsList = this.campaignRepository.findAll();
+            campaignsList = setEmployerTitle(campaignsList);
+
+        }
+        if(user.getUserRole().equals("EMPLOYER")){
+            campaignsList = this.campaignRepository.findAllByEmployerId(this.userData.getLoggedEmployer().getId());
+            campaignsList = setEmployerTitle(campaignsList);
+
+        }
 
         if(campaignsList.isEmpty()) {
             model.addAttribute("error", "No campaigns");
@@ -39,11 +65,14 @@ public class CampaignController {
         }
 
         model.addAttribute("campaigns", campaignsList);
+        model.addAttribute("userRole", user.getUserRole());
         return "campaigns/show-all";
     }
 
     @GetMapping("/campaigns/create")
     public String getCreateCampaignPage(Model model){
+        User user = userData.getLoggedUser();
+        model.addAttribute("user", user);
 
         model.addAttribute("campaign", new Campaign());
 
@@ -52,9 +81,10 @@ public class CampaignController {
 
     @GetMapping("/campaigns/edit/{id}")
     public String getEditCampaignPage(@PathVariable int id, Model model){
-        User thisUser = userData.getLoggedUser();
+        User user = userData.getLoggedUser();
+        model.addAttribute("user", user);
 
-        Optional<Campaign> campaignModel = this.campaignRepository.getMyCampaign(id, thisUser.getId());
+        Optional<Campaign> campaignModel = this.campaignRepository.getMyCampaign(id, user.getId());
         if(campaignModel.isPresent()) {
             Campaign campaignEntity = campaignModel.get();
 
@@ -64,12 +94,30 @@ public class CampaignController {
         return "/campaigns/show-all";
     }
 
+    @GetMapping("/campaigns/apply/{id}")
+    public RedirectView applyForCampaign(@PathVariable int id, RedirectAttributes redirectAttributes){
+        User user = userData.getLoggedUser();
+
+        Optional<Employee> thisEmployeeModel = this.employeeRepository.findEmployeeByUserId(user.getId());
+        Optional<Campaign> thisCampaignModel = this.campaignRepository.findById(id);
+
+        if(thisEmployeeModel.isEmpty() || thisCampaignModel.isEmpty()){
+            return new RedirectView("show-all");
+        }
+
+        Employee thisEmployee = thisEmployeeModel.get();
+        Campaign thisCampaign = thisCampaignModel.get();
+
+        this.appliesDataService.createNewApply(thisEmployee, thisCampaign);
+        return new RedirectView("/campaigns/show-all");
+    }
+
     @PostMapping("/campaigns/edit")
     public RedirectView editCampaign(@ModelAttribute Campaign campaign){
-        User thisUser = userData.getLoggedUser();
+        User user = userData.getLoggedUser();
         Campaign entityToUpdate;
 
-        Optional<Campaign> campaignModel = this.campaignRepository.getMyCampaign(campaign.getId(), thisUser.getId());
+        Optional<Campaign> campaignModel = this.campaignRepository.getMyCampaign(campaign.getId(), user.getId());
         if(campaignModel.isPresent()){
             entityToUpdate = campaignModel.get();
 
@@ -101,8 +149,9 @@ public class CampaignController {
 
     @GetMapping("/campaigns/view/{id}")
     public String viewOneCampaign(@PathVariable int id, Model model){
+        User user = userData.getLoggedUser();
+        model.addAttribute("user", user);
 
-//        this.campaignRepository.deleteById(id);
         Optional<Campaign> campaignModel = this.campaignRepository.findById(id);
         if(campaignModel.isPresent()){
             Campaign campaignEntity = campaignModel.get();
@@ -126,6 +175,28 @@ public class CampaignController {
 
         this.campaignRepository.save(newCampaign);
         return new RedirectView("show-all");
+    }
+
+    private List<Campaign> setEmployerTitle(List<Campaign> campaignList){
+        for(Campaign element : campaignList){
+            element.setEmployerTitle(getEmployerTitle(element.getEmployerId()));
+        }
+
+        return campaignList;
+
+    }
+    private String getEmployerTitle(int employerId){
+        Optional<Employer> employerModel = this.employerRepository.findById(employerId);
+
+        if(!employerModel.isPresent()){
+//            Employer employerEntity = employerModel.get();
+            return "No available";
+        }
+
+        Employer employerEntity = employerModel.get();
+
+        return employerEntity.getCompanyName();
+
     }
 
 }

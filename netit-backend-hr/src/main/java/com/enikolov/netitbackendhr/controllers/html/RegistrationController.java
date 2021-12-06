@@ -3,11 +3,13 @@ package com.enikolov.netitbackendhr.controllers.html;
 import java.util.HashMap;
 
 import com.enikolov.netitbackendhr.models.DTO.UserDTO;
+import com.enikolov.netitbackendhr.models.users.Employee;
 import com.enikolov.netitbackendhr.models.users.Employer;
 import com.enikolov.netitbackendhr.models.users.User;
+import com.enikolov.netitbackendhr.repositories.users.EmployeeRepository;
 import com.enikolov.netitbackendhr.repositories.users.EmployerRepository;
 import com.enikolov.netitbackendhr.repositories.users.UserRepository;
-import com.enikolov.netitbackendhr.services.data.UserData;
+import com.enikolov.netitbackendhr.services.data.UserDataService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class RegistrationController {
 
     @Autowired
-    private UserData userData;
+    private UserDataService userData;
 
 
     @Autowired
@@ -31,8 +33,11 @@ public class RegistrationController {
     @Autowired
     private EmployerRepository employerRepository;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
     @GetMapping("/register")
-    public String registerEmployee(Model model){
+    public String registerUser(Model model){
 
         HashMap<String, String> selectAccountType = getAccountTypes();
 
@@ -51,7 +56,20 @@ public class RegistrationController {
         employer.setUserId(loggedUser.getId());
 
         this.employerRepository.save(employer);
-        return new RedirectView("dashboard");    
+        return new RedirectView("dashboard");
+
+        // return "auth/employer-register";
+    }
+
+    @PostMapping("/employee-register")
+    public RedirectView employeeRegister(@ModelAttribute Employee employee){
+
+        User loggedUser = userData.getLoggedUser();
+//        employee.setUserId(loggedUser.getId());
+        employee.setUser(loggedUser);
+
+        this.employeeRepository.save(employee);
+        return new RedirectView("employee-dashboard");
 
         // return "auth/employer-register";
     }

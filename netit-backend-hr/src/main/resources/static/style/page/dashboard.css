@@ -132,3 +132,20 @@
 .navigation--workspace-item:hover{
     background: #b7d8d6;
 }
+.apply-status{
+    font-size: 15px;
+    color: coral;
+    font-style: italic;
+}
+.PENDING{
+    background: #FEEFB3;
+}
+.INTERVIEW_APPROVED{
+    background: #BEF;
+}
+.JOB_APPROVED{
+    background: #DFF2BF;
+}
+.REJECTED{
+    background: #FFBABA;
+}

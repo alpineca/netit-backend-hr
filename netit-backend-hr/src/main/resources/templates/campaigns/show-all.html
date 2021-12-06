@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="ISO-8859-1">
-    <title>All my campaigns</title>
+    <title>All campaigns</title>
     <link th:href="@{/style/global/global.css}" rel="stylesheet" />
     <link th:href="@{/style/global/util.css}" rel="stylesheet" />
     <link th:href="@{/style/global/form.css}" rel="stylesheet" />
@@ -21,12 +21,9 @@
         </div>
 
         <div id="content--main">
-                <div>
+                <div th:if="${userRole == 'EMPLOYER'}">
                     <a th:href="@{/campaigns/create}">
                         <span class="input input-button input-button--green ">Start new campaign</span>
-                        <span th:text="${time}"></span>
-                        <span th:text="${date}"></span>
-
                     </a>
                 </div>
             <div class="slick-info-text" th:if="${(error != null)}">
@@ -39,7 +36,7 @@
                     <div class="campaign-box-title">
                         <span th:text="${campaign.title}">Campaign 1</span>
                     </div>
-                    <div class="in-box-actions">
+                    <div class="in-box-actions" th:if="${userRole == 'EMPLOYER'}">
                         <a th:href="@{|/campaigns/view/${campaign.id}|}">View</a>
                         <span> | </span>
                         <a th:href="@{|/campaigns/edit/${campaign.id}|}">Edit</a>
@@ -47,10 +44,17 @@
                         <a th:href="@{|/campaigns/delete/${campaign.id}|}">Delete</a>
                         
                     </div>
+                    <div class="in-box-actions" th:if="${userRole == 'EMPLOYEE'}">
+                        <a th:href="@{|/campaigns/view/${campaign.id}|}">View</a>
+                        <span> | </span>
+                        <a th:href="@{|/campaigns/apply/${campaign.id}|}">Apply</a>
+
+                    </div>
                     
                 </div>
                 <div class="campaign-box-category">
                     <span>Category <b th:text="${campaign.category}"></b></span>
+                    <span th:if="${userRole == 'EMPLOYEE'}"> Company <b th:text="${campaign.employerTitle}"></b></span>
                 </div>
                 
                 <div class="campaign-box-description">

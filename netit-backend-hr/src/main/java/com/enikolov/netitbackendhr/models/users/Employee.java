@@ -13,11 +13,14 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String fullName;
+    private String firstName;
+    private String lastName;
     private int age;
-    // private City city;
+    private String city;
     private String address;
     private String webAddress;
+    private String telephone;
+    private String socialMedia;
 
     @OneToOne
     private User user;
@@ -32,102 +35,91 @@ public class Employee {
     )
     private List<Category> interestedCategories;
 
-    /**
-     * @return the id
-     */
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the fullName
-     */
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    /**
-     * @param fullName the fullName to set
-     */
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    /**
-     * @return the age
-     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public int getAge() {
         return age;
     }
 
-    /**
-     * @param age the age to set
-     */
     public void setAge(int age) {
         this.age = age;
     }
 
-    /**
-     * @return the address
-     */
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getAddress() {
         return address;
     }
 
-    /**
-     * @param address the address to set
-     */
     public void setAddress(String address) {
         this.address = address;
     }
 
-    /**
-     * @return the webAddress
-     */
     public String getWebAddress() {
         return webAddress;
     }
 
-    /**
-     * @param webAddress the webAddress to set
-     */
     public void setWebAddress(String webAddress) {
         this.webAddress = webAddress;
     }
 
-    /**
-     * @return the user
-     */
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getSocialMedia() {
+        return socialMedia;
+    }
+
+    public void setSocialMedia(String socialMedia) {
+        this.socialMedia = socialMedia;
+    }
+
     public User getUser() {
         return user;
     }
 
-    /**
-     * @param user the user to set
-     */
     public void setUser(User user) {
         this.user = user;
     }
 
-    /**
-     * @return the interestedCategories
-     */
     public List<Category> getInterestedCategories() {
         return interestedCategories;
     }
 
-    /**
-     * @param interestedCategories the interestedCategories to set
-     */
     public void setInterestedCategories(List<Category> interestedCategories) {
         this.interestedCategories = interestedCategories;
     }
-
 }
