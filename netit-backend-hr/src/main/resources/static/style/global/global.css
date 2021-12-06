@@ -25,3 +25,27 @@ a:active {
 body {
 	background: #fafafa;
 }
+.INFO_MSG,
+.SUCCESS_MSG,
+.WARNING_MSG,
+.ERROR_MSG {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+.INFO_MSG {
+  color: #059;
+  background-color: #BEF;
+}
+.SUCCESS_MSG {
+  color: #270;
+  background-color: #DFF2BF;
+}
+.WARNING_MSG {
+  color: #9F6000;
+  background-color: #FEEFB3;
+}
+.ERROR_MSG {
+  color: #D8000C;
+  background-color: #FFBABA;
+}

@@ -1,17 +1,18 @@
 package com.enikolov.netitbackendhr.components;
 
+import com.enikolov.netitbackendhr.enums.MessageStyle;
 import org.springframework.stereotype.Component;
 
 @Component
 public class InfoMessage {
     private String message;
-    private String type;
+    private MessageStyle style;
 
     public InfoMessage(){
 
     }
-    public InfoMessage(String type, String message){
-        this.type = type;
+    public InfoMessage(String message, MessageStyle style){
+        this.style = style;
         this.message = message;
     }
 
@@ -23,11 +24,11 @@ public class InfoMessage {
         this.message = message;
     }
 
-    public String getType() {
-        return type;
+    public MessageStyle getStyle() {
+        return style;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setStyle(MessageStyle style) {
+        this.style = style;
     }
 }
