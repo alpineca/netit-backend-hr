@@ -11,6 +11,7 @@ import com.enikolov.netitbackendhr.repositories.users.EmployeeRepository;
 import com.enikolov.netitbackendhr.repositories.users.EmployerRepository;
 import com.enikolov.netitbackendhr.services.AppliesDataService;
 import com.enikolov.netitbackendhr.services.data.CampaignsDataService;
+import com.enikolov.netitbackendhr.services.data.CategoryDataService;
 import com.enikolov.netitbackendhr.services.data.EmployerDataService;
 import com.enikolov.netitbackendhr.services.data.UserDataService;
 import com.enikolov.netitbackendhr.components.InfoMessage;
@@ -41,6 +42,8 @@ public class CampaignController {
     private CampaignsDataService campaignsDataService;
     @Autowired
     private EmployerDataService employerDataService;
+    @Autowired
+    private CategoryDataService categoryDataService;
     @Autowired
     private CampaignRepository campaignRepository;
     @Autowired
@@ -136,6 +139,7 @@ public class CampaignController {
         User user = userData.getLoggedUser();
         model.addAttribute("user", user);
 
+        model.addAttribute("categories", this.categoryDataService.getAllCategories());
         model.addAttribute("campaign", new Campaign());
 
         return "campaigns/create";
@@ -172,6 +176,7 @@ public class CampaignController {
     @GetMapping("/campaigns/apply/{id}")
     public RedirectView applyForCampaign(@PathVariable int id, RedirectAttributes redirectAttributes){
         User user = userData.getLoggedUser();
+        InfoMessage message = new InfoMessage();
 
         Optional<Employee> thisEmployeeModel = this.employeeRepository.findEmployeeByUserId(user.getId());
         Optional<Campaign> thisCampaignModel = this.campaignRepository.findById(id);
@@ -184,6 +189,10 @@ public class CampaignController {
         Campaign thisCampaign = thisCampaignModel.get();
 
         this.appliesDataService.createNewApply(thisEmployee, thisCampaign);
+        message.setMessage("You successfuly applied for campaing. \n The HR Agents will review your apply soon.");
+        message.setStyle(MessageStyle.SUCCESS_MSG);
+
+        redirectAttributes.addFlashAttribute("message", message);
         return new RedirectView("/campaigns/show-all");
     }
 

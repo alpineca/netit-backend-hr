@@ -42,7 +42,7 @@
                 <div th:if="${message != null}" th:class="${message.style}">
                     <span th:text="${message.message}">InfoMessage</span>
                 </div>
-            <div class="slick-info-text" th:if="${(error != null)}">
+            <div class="WARNING_MSG" th:if="${(error != null)}">
                 There is no campaigns. Lets create one?
             </div>
 
@@ -52,7 +52,7 @@
                     <div class="campaign-box-title">
                         <span th:text="${campaign.title}">Campaign 1</span>
                     </div>
-                    <div class="in-box-actions" th:if="${userRole == 'EMPLOYER'}">
+                    <div class="in-box-actions" th:if="${user.userRole == 'EMPLOYER'}">
                         <a th:href="@{|/campaigns/view/${campaign.id}|}">View</a>
                         <span> | </span>
                         <a th:href="@{|/campaigns/edit/${campaign.id}|}">Edit</a>
@@ -60,7 +60,7 @@
                         <a th:href="@{|/campaigns/delete/${campaign.id}|}">Delete</a>
                         
                     </div>
-                    <div class="in-box-actions" th:if="${userRole == 'EMPLOYEE'}">
+                    <div class="in-box-actions" th:if="${user.userRole == 'EMPLOYEE'}">
                         <a th:href="@{|/campaigns/view/${campaign.id}|}">View</a>
                         <span> | </span>
                         <a th:href="@{|/campaigns/apply/${campaign.id}|}">Apply</a>
@@ -69,7 +69,7 @@
                     
                 </div>
                 <div class="campaign-box-category">
-                    <span>Category <b th:text="${campaign.category}"></b></span>
+                    <span>Category <b th:text="${campaign.category.categoryName}"></b></span>
                     <span th:if="${user.userRole == 'EMPLOYEE'}"> Company <b th:text="${campaign.employerTitle}"></b></span>
                 </div>
                 

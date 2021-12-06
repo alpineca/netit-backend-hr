@@ -1,6 +1,7 @@
 package com.enikolov.netitbackendhr.models.users;
 
-import com.enikolov.netitbackendhr.models.extra.infoContent.Category;
+import com.enikolov.netitbackendhr.models.extra.Category;
+import com.enikolov.netitbackendhr.models.extra.City;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +17,9 @@ public class Employee {
     private String firstName;
     private String lastName;
     private int age;
-    private String city;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
     private String address;
     private String webAddress;
     private String telephone;
@@ -25,8 +28,6 @@ public class Employee {
     @OneToOne
     private User user;
 
-    // @OneToOne
-    // private Contacts contacts;
     @ManyToMany
     @JoinTable(
             name                = "tc_employee_interests",
@@ -67,11 +68,11 @@ public class Employee {
         this.age = age;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 

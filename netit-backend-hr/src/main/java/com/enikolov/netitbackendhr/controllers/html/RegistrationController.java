@@ -43,8 +43,6 @@ public class RegistrationController {
 
         model.addAttribute("selectAccountType"  , selectAccountType);
         model.addAttribute("userDTO", new UserDTO());
-
-        System.out.println("first form passed");
         return "auth/register";
 
     }
@@ -56,7 +54,7 @@ public class RegistrationController {
         employer.setUserId(loggedUser.getId());
 
         this.employerRepository.save(employer);
-        return new RedirectView("dashboard");
+        return new RedirectView("/campaigns/show-all");
 
         // return "auth/employer-register";
     }

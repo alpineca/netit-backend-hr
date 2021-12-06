@@ -1,5 +1,6 @@
 package com.enikolov.netitbackendhr.models.general;
 
+import com.enikolov.netitbackendhr.models.extra.Category;
 import com.enikolov.netitbackendhr.models.users.Employee;
 
 import javax.persistence.*;
@@ -18,7 +19,9 @@ public class Campaign {
     private String title;
     @Column(columnDefinition="TEXT")
     private String description;
-    private String category;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
     private int salaryMin;
     private int salaryMax;
     @Transient
@@ -59,21 +62,6 @@ public class Campaign {
     public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
     }
-
-//    /**
-//     * @return the employer
-//     */
-//    public Employer getEmployer() {
-//        return employer;
-//    }
-//
-//    /**
-//     * @param employer the employer to set
-//     */
-//    public void setEmployer(Employer employer) {
-//        this.employer = employer;
-//    }
-
     /**
      * @return the title
      */
@@ -116,11 +104,11 @@ public class Campaign {
         this.applicants = applicants;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

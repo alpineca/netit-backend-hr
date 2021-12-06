@@ -1,4 +1,78 @@
+-- TEST USERS
 INSERT INTO `netit_backend_hr_db`.`td_users` (`id`, `mail`, `password`, `user_role`, `username`) VALUES ('1', 'amchek@abv.bg', 'asddsdas', '0', 'alimte');
 INSERT INTO `netit_backend_hr_db`.`td_users` (`id`, `mail`, `password`, `user_role`, `username`) VALUES ('2', 'maharadja@abv.bg', 'sadjkasjkdn', '1', 'animus');
 INSERT INTO `netit_backend_hr_db`.`td_users` (`id`, `mail`, `password`, `user_role`, `username`) VALUES ('3', 'tuareg@abv.bg', 'sadjd', '2', 'Volks');
 INSERT INTO `netit_backend_hr_db`.`td_users` (`id`, `mail`, `password`, `user_role`, `username`) VALUES ('4', 'cls@abv.bg', 'ufhfjwekl', '4', 'Merc');
+
+-- CATEGORIES
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('1', 'Retail, Wholesale');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('2', 'Manufacturing');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('3', 'Administrative, Office and Bussiness activities');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('4', 'Restaurants, Bars, Hotels, Tourusm');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('5', 'Engineers and Technicians');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('6', 'Drivers, Couriers');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('7', 'Customer support and bussiness service centers');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('8', 'Accountingm Audit, Finance');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('9', 'Architecture, Constructions');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('10', 'Manual works');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('11', 'Instalation, Maintenance and Repair');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('12', 'Healthcare and Pharmacy');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('13', 'Banking, Lending, Insurance');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('14', 'Logistics, Spedition');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('15', 'Automotive, Auto Service, Gas Stations');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('16', 'Marketing, Advertising, PR');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('17', 'Cleaning, Gardening, Householding');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('18', 'Entertainment, Promotion, Sports, Beauty');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('19', 'Telecoms');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('20', 'Education, Courses, Translators');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('21', 'Management');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('22', 'Human Resources');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('23', 'Energy, Water and Sewagem Utilities');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('24', 'Security');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('25', 'Research and Development');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('26', 'Design, Creative, Arts');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('27', 'Real-estate');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('28', 'Public sector, Government');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('29', 'Agricultural, Forestry & Fishing');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('30', 'Legal');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('31', 'Media, Publishing');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('32', 'Aviation, Airport & Airline');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('33', 'NGO');
+INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('34', 'Marine and Shipping');
+
+
+-- CITIES
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('1', 'Sofia');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('2', 'Plovdiv');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('3', 'Varna');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('4', 'Burgas');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('5', 'Ruse');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('6', 'Stara Zagora');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('7', 'Pleven');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('8', 'Sliven');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('9', 'Dobrich');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('10', 'Shumen');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('11', 'Pernik');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('12', 'Haskovo');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('13', 'Yambol');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('14', 'Pazardzhik');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('15', 'Blagoevgrad');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('16', 'Veliko Tarnovo');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('17', 'Vratsa');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('18', 'Gabrovo');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('19', 'Asenovgrad');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('20', 'Vidin');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('21', 'Kazanlak');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('22', 'Kyustendil');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('23', 'Kardzhali');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('24', 'Montana');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('25', 'Dimitrovgrad');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('26', 'Targovishte');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('27', 'Lovech');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('28', 'Silistra');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('29', 'Dupnitsa');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('30', 'Svishtov');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('31', 'Razgrad');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('32', 'Smolyan');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('33', 'Petrich');
+INSERT INTO `netit_backend_hr_db`.`tm_cities` (`id`, `city_name`) VALUES ('34', 'Sandanski');

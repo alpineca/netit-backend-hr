@@ -47,12 +47,9 @@
 						th:field="*{age}"
                         placeholder="Your age">
 
-					<select class="input" th:field="*{city}">
-						<option th:value="select" >Selectt your city</option>
-						<option th:value="Sofia" >Sofia</option>
-						<option th:value="Plovdiv" >Plovdiv</option>
-						<option th:value="Varna" >Varna</option>
-						<option th:value="Bourgas" >Bourgas</option>
+					<select th:field="*{city}" class="input">
+						<option th:value="select">Select your city</option>
+						<option th:each="thisCity : ${cities}" th:value="${thisCity.id}" th:text="${thisCity.cityName}"></option>
 					</select>
 
                     <input 

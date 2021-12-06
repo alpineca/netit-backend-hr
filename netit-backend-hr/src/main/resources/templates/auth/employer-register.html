@@ -43,25 +43,14 @@
 
 					<select th:field="*{category}" class="input">
 						<option value="select">Bussines category</option>
-						<option value="retail">Retail</option>
-						<option value="manufactoring">Manufactoring</option>
-						<option value="couriers">Couriers</option>
-						<option value="constructions">Constructions</option>
-						<option value="finance">Finance</option>
-						<option value="advertising">Advertising</option>
-						<option value="entertainment">Entertainment</option>
-						<option value="tourism">Tourism</option>
+						<option th:each="thisCategory : ${categories}" th:value="${thisCategory.id}" th:text="${thisCategory.categoryName}"></option>
 					</select> 
 
                     
 
-                    <select th:field="*{headquarterLocation}" class="input">
-                        <option value="select">Select headquarter city</option>
-                        <option value="remote">Remote</option>
-						<option value="sofia">Sofia</option>
-						<option value="plovdiv">Plovdiv</option>
-                        <option value="varna">Varna</option>
-                        <option value="bourgas">Bourgas</option>
+                    <select th:field="*{city}" class="input">
+                        <option th:value="select">Select headquarter city</option>
+						<option th:each="thisCity : ${cities}" th:value="${thisCity.id}" th:text="${thisCity.cityName}"></option>
                     </select>    
                     
                     <input 

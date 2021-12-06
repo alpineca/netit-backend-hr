@@ -1,7 +1,5 @@
 package com.enikolov.netitbackendhr.models.extra;
 
-import com.enikolov.netitbackendhr.models.extra.infoContent.City;
-
 import javax.persistence.*;
 
 @Entity
