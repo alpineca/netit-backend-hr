@@ -10,7 +10,8 @@ public class GuestPagesController {
 
     @GetMapping("/")
     public String getIndexPage(){
-        return "index";
+
+        return "main/index";
     }
 
     @GetMapping("/test")
@@ -20,7 +21,7 @@ public class GuestPagesController {
 
     @GetMapping("/error")
     public String getErrorPage(){
-        return "error";
+        return "main/index";
     }
 
 

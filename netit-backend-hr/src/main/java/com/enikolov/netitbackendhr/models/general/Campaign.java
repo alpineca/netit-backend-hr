@@ -21,6 +21,8 @@ public class Campaign {
     private String category;
     private int salaryMin;
     private int salaryMax;
+    @Transient
+    private String employerTitle;
 
     @ManyToMany
     @JoinTable(
@@ -152,5 +154,13 @@ public class Campaign {
 
     public void setEmployerId(int employerId) {
         this.employerId = employerId;
+    }
+
+    public String getEmployerTitle() {
+        return employerTitle;
+    }
+
+    public void setEmployerTitle(String employerTitle) {
+        this.employerTitle = employerTitle;
     }
 }

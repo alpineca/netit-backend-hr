@@ -34,8 +34,20 @@ public class LoginController {
 
         if(findUser.isPresent()){
 
-            // model.addAttribute("username", user.getUsername());
-            return new RedirectView("dashboard");
+            User thisUser = findUser.get();
+
+            if(thisUser.getUserRole().equals("EMPLOYER")){
+                return new RedirectView("employer-dashboard");
+            }
+            if(thisUser.getUserRole().equals("EMPLOYEE")){
+                return new RedirectView("employee-dashboard");
+            }
+            if(thisUser.getUserRole().equals("HR")){
+                return new RedirectView("hr-dashboard");
+            }
+            if(thisUser.getUserRole().equals("SUPER")){
+                return new RedirectView("super-dashboard");
+            }
         }
 
         return new RedirectView("login");

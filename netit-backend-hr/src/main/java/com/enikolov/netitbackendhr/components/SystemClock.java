@@ -1,4 +1,4 @@
-package com.enikolov.netitbackendhr.utils;
+package com.enikolov.netitbackendhr.components;
 
 import org.springframework.stereotype.Component;
 

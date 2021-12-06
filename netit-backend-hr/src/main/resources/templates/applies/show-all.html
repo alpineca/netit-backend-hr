@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>All campaigns</title>
+    <link th:href="@{/style/global/global.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/util.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/form.css}" rel="stylesheet" />
+    <link th:href="@{/style/page/dashboard.css}" rel="stylesheet" />
+</head>
+
+<body>
+    
+    <div class="center ptb-36">
+        <img id="logo" src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.273/static/media/trello-logo-blue.f7627b3a.svg">
+    </div>
+    <div id="app-wrapper">
+
+        <div class="navigation--main" th:replace="fragments/navigation-sidebar :: navigation-sidebar">
+        </div>
+
+        <div id="content--main">
+
+            <div class="content-box-wrapper" th:classappend="${apply.value}"  th:each="apply : ${applies}">
+                <div class="box-header">
+
+                    <div class="campaign-box-title">
+                        <a th:href="@{|/campaigns/view/${apply.key.id}|}">
+                            <span th:text="${apply.key.title}">Campaign 1 ||</span>
+                        </a>
+                    </div>
+                    <div class="in-box-actions">
+                        <span class="apply-status" th:text="${apply.value}">Campaign 1 </span>
+                    </div>
+                    
+                </div>
+                <div class="campaign-box-category">
+                    <span>Category <b th:text="${apply.key.category}"></b></span>
+                    <span> Company <b th:text="${apply.key.employerTitle}"></b></span>
+                </div>
+                
+                <div class="campaign-box-description">
+                    <span th:text="${apply.key.description}">Description</span>
+                </div>
+
+                <div class="campaign-box-footer">
+                    <span class="campaign-box-footer--salary">Salary: <b th:text="${apply.key.salaryMin}">1000</b> to <b th:text="${apply.key.salaryMax}">1500</b></span>
+                    <span class="campaign-box-footer--publishing">Publishing time: <b th:text="${apply.key.publishDate}">02.12.2021</b> <b th:text="${apply.key.publishTime}"> 18:44</b></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

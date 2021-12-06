@@ -7,7 +7,23 @@
 <body>
 	<div id="navigation--sidebar" th:fragment="navigation-sidebar">					
 	<div class="sidebar-wrapper">
-		<div class="navigation--workspace-panel">
+
+			<div class="navigation--workspace-panel" th:if="${user.userRole == 'EMPLOYEE'}">
+				<div
+						class="navigation--workspace-panel-title">Меню</div>
+				<ul>
+					<a th:href="@{/campaigns/show-all}">
+						<li class="navigation--workspace-item">Актуални кампании</li>
+					</a>
+					<a th:href="@{/applies/show-all}">
+						<li class="navigation--workspace-item">Кандидатури</li>
+					</a>
+					<a th:href="@{/applies/show-all/blues}">
+						<li class="navigation--workspace-item">Покани за интервю</li>
+					</a>
+				</ul>
+			</div>
+		<div class="navigation--workspace-panel" th:if="${user.userRole == 'EMPLOYER'}">
 			<div
 					class="navigation--workspace-panel-title">Моите кампании</div>
 			<ul>
@@ -19,7 +35,7 @@
 				</a>
 			</ul>
 		</div>
-		<div class="navigation--workspace-panel">
+		<div class="navigation--workspace-panel" th:if="${user.userRole == 'EMPLOYER'}">
 			<div
 					class="navigation--workspace-panel-title">Мрежа</div>
 			<ul>
@@ -31,7 +47,7 @@
 				</a>
 			</ul>
 		</div>
-		<div class="navigation--workspace-panel">
+		<div class="navigation--workspace-panel" th:if="${user.userRole == 'EMPLOYER'}">
 			<div
 					class="navigation--workspace-panel-title">HR агенти</div>
 			<ul>
@@ -41,7 +57,7 @@
 		</div>
 		<div class="navigation--workspace-panel">
 			<div
-					class="navigation--workspace-panel-title">Профил</div>
+					class="navigation--workspace-panel-title" th:text="${user.userRole}">Профил</div>
 			<ul>
 				<li class="navigation--workspace-item">Преглед</li>
 				<li class="navigation--workspace-item">Настройки</li>

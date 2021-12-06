@@ -1,11 +1,10 @@
 package com.enikolov.netitbackendhr.controllers.html;
 
-import java.util.Optional;
-
+import com.enikolov.netitbackendhr.models.users.Employee;
 import com.enikolov.netitbackendhr.models.users.Employer;
 import com.enikolov.netitbackendhr.models.users.User;
 import com.enikolov.netitbackendhr.repositories.users.EmployerRepository;
-import com.enikolov.netitbackendhr.services.data.UserData;
+import com.enikolov.netitbackendhr.services.data.UserDataService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,36 +16,42 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DashboardController {
 
     @Autowired
-    private UserData logUser;
+    private UserDataService logUser;
 
     @Autowired
     private EmployerRepository employerRepository;
 
-    @GetMapping("/dashboard")
+    @GetMapping("/employer-dashboard")
     public String getDashboardPage(Model model){
         User user = logUser.getLoggedUser();
         
-        if(!checkForFullRegisteredEmployer(user)){
+        if(!logUser.isRegistrationDone(user)){
 
             model.addAttribute("username", user.getUsername());
             model.addAttribute("employer", new Employer());
             return "auth/employer-register";
         }
 
-        model.addAttribute("loggedUser", user);
+        model.addAttribute("user", user);
 
-        return "main/dashboard";
+        return "main/employer-dashboard";
     }
 
-    private boolean checkForFullRegisteredEmployer(User user){
+    @GetMapping("/employee-dashboard")
+    public String getEmployeeDashboardPage(Model model){
+        User user = logUser.getLoggedUser();
+        model.addAttribute("user", user);
 
-        Optional<Employer> employerFill = this.employerRepository.findEmployerByUserId(user.getId());
+        if(!logUser.isRegistrationDone(user)){
 
-        if(employerFill.isPresent()){
-            return true;
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("employee", new Employee());
+            return "auth/employee-register";
         }
 
-        return false;
+
+
+        return "main/employee-dashboard";
     }
     
 }
