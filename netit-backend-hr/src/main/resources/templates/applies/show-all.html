@@ -21,6 +21,9 @@
         </div>
 
         <div id="content--main">
+            <div th:if="${message != null}" th:class="${message.style}">
+                <span th:text="${message.message}">InfoMessage</span>
+            </div>
 
             <div class="content-box-wrapper" th:classappend="${apply.value}"  th:each="apply : ${applies}">
                 <div class="box-header">
@@ -36,8 +39,8 @@
                     
                 </div>
                 <div class="campaign-box-category">
-                    <span>Category <b th:text="${apply.key.category}"></b></span>
-                    <span> Company <b th:text="${apply.key.employerTitle}"></b></span>
+                    <span>Category <b th:text="${apply.key.category.categoryName}"></b></span>
+                    <span> Company <b th:text="${apply.key.employer.name}"></b></span>
                 </div>
                 
                 <div class="campaign-box-description">

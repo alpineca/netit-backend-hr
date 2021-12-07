@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 @Controller
@@ -28,21 +29,16 @@ public class DashboardController {
     private CategoryDataService categoryDataService;
 
     @GetMapping("/employer-dashboard")
-    public String getDashboardPage(Model model){
+    public RedirectView getDashboardPage(Model model){
         User user = logUser.getLoggedUser();
         
         if(!logUser.isRegistrationDone(user)){
-
-            model.addAttribute("cities", this.cityDataService.getAllCities());
-            model.addAttribute("categories", this.categoryDataService.getAllCategories());
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("employer", new Employer());
-            return "auth/employer-register";
+            return new RedirectView("/employer-register");
         }
 
         model.addAttribute("user", user);
 
-        return "main/employer-dashboard";
+        return new RedirectView("main/employer-dashboard");
     }
 
     @GetMapping("/employee-dashboard")

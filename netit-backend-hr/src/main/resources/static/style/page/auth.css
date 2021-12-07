@@ -21,4 +21,15 @@
     color		: rgb(94, 108, 132);
     font-weight	: bold; 
 }
+.buttons-div{
+	display: flex;
+}
+.login-button{
+	width: 160px;
+}
+.register-button{
+	width: 160px;
+    margin-right: 0px;
+    margin-left: auto;
+}
 

@@ -19,8 +19,8 @@
 	
 		<!-- SIGN UP : Component -->
 		<div id="auth-panel">
-			<div class="center pb-24">
-				<span class="header">Loggin in trello</span>
+			<div class="center pb-16">
+				<span class="header">Login in NETIT BACKEND HR</span>
 			</div>
 
 			<div 	th:if="${param.error}"
@@ -30,11 +30,6 @@
 		
 		
 			<div>
-                <!--
-				<div th:if="${(param.error != null)}">
-					Invalid credentials
-				</div>
-				-->
 				<form
 					method="post"
 					th:action="@{/login}"
@@ -53,10 +48,15 @@
 						placeholder="password" 
 						th:field="*{password}"  
 						th:required="required">
-					
+					<div class="buttons-div">
 					<button 
-						class="input input-button  input-button--green" 
-						type="submit">Sign Up</button>
+						class="input input-button  input-button--green login-button"
+						type="submit">Login</button>
+						<input class="input input-button  input-button--blue register-button"
+							   type="button"
+							   onclick="location.href='/register';"
+							   value="Register" />
+					</div>
 				</form>
 			</div>
 		</div>

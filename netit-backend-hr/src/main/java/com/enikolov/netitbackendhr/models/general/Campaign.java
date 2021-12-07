@@ -2,6 +2,7 @@ package com.enikolov.netitbackendhr.models.general;
 
 import com.enikolov.netitbackendhr.models.extra.Category;
 import com.enikolov.netitbackendhr.models.users.Employee;
+import com.enikolov.netitbackendhr.models.users.Employer;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,8 +15,9 @@ public class Campaign {
     private int id;
     private String publishDate;
     private String publishTime;
-    @Column(name="employer_id")
-    private int employerId;
+    @ManyToOne
+    @JoinColumn(name = "employer_id")
+    private Employer employer;
     private String title;
     @Column(columnDefinition="TEXT")
     private String description;
@@ -24,8 +26,6 @@ public class Campaign {
     private Category category;
     private int salaryMin;
     private int salaryMax;
-    @Transient
-    private String employerTitle;
 
     @ManyToMany
     @JoinTable(
@@ -35,73 +35,52 @@ public class Campaign {
     )
     private List<Employee> applicants;
 
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the publishDate
-     */
     public String getPublishDate() {
         return publishDate;
     }
 
-    /**
-     * @param publishDate the publishDate to set
-     */
     public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
     }
-    /**
-     * @return the title
-     */
+
+    public String getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(String publishTime) {
+        this.publishTime = publishTime;
+    }
+
+    public Employer getEmployer() {
+        return employer;
+    }
+
+    public void setEmployer(Employer employer) {
+        this.employer = employer;
+    }
+
     public String getTitle() {
         return title;
     }
 
-    /**
-     * @param title the title to set
-     */
     public void setTitle(String title) {
         this.title = title;
     }
 
-    /**
-     * @return the description
-     */
     public String getDescription() {
         return description;
     }
 
-    /**
-     * @param description the description to set
-     */
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    /**
-     * @return the candidates
-     */
-    public List<Employee> getApplicants() {
-        return applicants;
-    }
-
-    /**
-     * @param applicants the candidates to set
-     */
-    public void setApplicants(List<Employee> applicants) {
-        this.applicants = applicants;
     }
 
     public Category getCategory() {
@@ -128,27 +107,11 @@ public class Campaign {
         this.salaryMax = salaryMax;
     }
 
-    public String getPublishTime() {
-        return publishTime;
+    public List<Employee> getApplicants() {
+        return applicants;
     }
 
-    public void setPublishTime(String publishTime) {
-        this.publishTime = publishTime;
-    }
-
-    public int getEmployerId() {
-        return employerId;
-    }
-
-    public void setEmployerId(int employerId) {
-        this.employerId = employerId;
-    }
-
-    public String getEmployerTitle() {
-        return employerTitle;
-    }
-
-    public void setEmployerTitle(String employerTitle) {
-        this.employerTitle = employerTitle;
+    public void setApplicants(List<Employee> applicants) {
+        this.applicants = applicants;
     }
 }

@@ -34,7 +34,7 @@
                             class="filter-form">
                         <select class="input filter-select" th:field="*{id}">
                             <option selected th:value="0">Choose employer</option>
-                            <option th:each="employer : ${allEmployers}" th:value="${employer.id}" th:text="${employer.companyName}"></option>
+                            <option th:each="employer : ${allEmployers}" th:value="${employer.id}" th:text="${employer.name}"></option>
                         </select>
                         <button class="input input-button input-button--green filter-button" type="submit">Filter</button>
                     </form>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="campaign-box-category">
                     <span>Category <b th:text="${campaign.category.categoryName}"></b></span>
-                    <span th:if="${user.userRole == 'EMPLOYEE'}"> Company <b th:text="${campaign.employerTitle}"></b></span>
+                    <span th:if="${user.userRole == 'EMPLOYEE'}"> Company <b th:text="${campaign.employer.name}"></b></span>
                 </div>
                 
                 <div class="campaign-box-description">

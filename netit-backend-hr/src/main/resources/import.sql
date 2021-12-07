@@ -1,9 +1,3 @@
--- TEST USERS
-INSERT INTO `netit_backend_hr_db`.`td_users` (`id`, `mail`, `password`, `user_role`, `username`) VALUES ('1', 'amchek@abv.bg', 'asddsdas', '0', 'alimte');
-INSERT INTO `netit_backend_hr_db`.`td_users` (`id`, `mail`, `password`, `user_role`, `username`) VALUES ('2', 'maharadja@abv.bg', 'sadjkasjkdn', '1', 'animus');
-INSERT INTO `netit_backend_hr_db`.`td_users` (`id`, `mail`, `password`, `user_role`, `username`) VALUES ('3', 'tuareg@abv.bg', 'sadjd', '2', 'Volks');
-INSERT INTO `netit_backend_hr_db`.`td_users` (`id`, `mail`, `password`, `user_role`, `username`) VALUES ('4', 'cls@abv.bg', 'ufhfjwekl', '4', 'Merc');
-
 -- CATEGORIES
 INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('1', 'Retail, Wholesale');
 INSERT INTO `netit_backend_hr_db`.`tm_categories` (`id`, `category_name`) VALUES ('2', 'Manufacturing');

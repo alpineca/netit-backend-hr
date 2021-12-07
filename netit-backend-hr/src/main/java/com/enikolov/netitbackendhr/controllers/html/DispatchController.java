@@ -33,13 +33,13 @@ public class DispatchController {
         User user = userData.getLoggedUser();
         String userRole = user.getUserRole();
 
-        if(userRole.equals("EMPLOYER")){
-            return new RedirectView("employer-dashboard");
+        if(userRole.equals("EMPLOYER") && isRegistrationDone(user)){
+            return new RedirectView("/campaigns/show-all");
         }
 //
-//        if(userRole.equals("EMPLOYER") && !isRegistrationDone(user)){
-//            return new RedirectView("employer-register");
-//        }
+        if(userRole.equals("EMPLOYER") && !isRegistrationDone(user)){
+            return new RedirectView("/employer-register");
+        }
 
         if(userRole.equals("EMPLOYEE") && isRegistrationDone(user)){
             return new RedirectView("applies/show-all");

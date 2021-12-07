@@ -25,11 +25,6 @@ public class LoginController {
     @GetMapping("/login")
     public String getLoginPage(Model model){
 
-
-        // if(message != null){
-        //     model.addAttribute("message", message);
-        // }
-
         InfoMessage message = new InfoMessage();
         message.setMessage("Username or password not valid!");
         message.setStyle(MessageStyle.ERROR_MSG);

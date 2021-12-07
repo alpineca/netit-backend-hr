@@ -9,6 +9,8 @@ import com.enikolov.netitbackendhr.models.users.User;
 import com.enikolov.netitbackendhr.repositories.users.EmployeeRepository;
 import com.enikolov.netitbackendhr.repositories.users.EmployerRepository;
 import com.enikolov.netitbackendhr.repositories.users.UserRepository;
+import com.enikolov.netitbackendhr.services.data.CategoryDataService;
+import com.enikolov.netitbackendhr.services.data.CityDataService;
 import com.enikolov.netitbackendhr.services.data.UserDataService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,11 @@ import org.springframework.web.servlet.view.RedirectView;
 public class RegistrationController {
 
     @Autowired
-    private UserDataService userData;
+    private UserDataService userDataService;
+    @Autowired
+    private CityDataService cityDataService;
+    @Autowired
+    private CategoryDataService categoryDataService;
 
 
     @Autowired
@@ -46,30 +52,36 @@ public class RegistrationController {
         return "auth/register";
 
     }
+    @GetMapping("/employer-register")
+    private String getEmployerRegisterPage(Model model){
+        User user = this.userDataService.getLoggedUser();
+
+        model.addAttribute("cities", this.cityDataService.getAllCities());
+        model.addAttribute("categories", this.categoryDataService.getAllCategories());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("employer", new Employer());
+        return "auth/employer-register";
+    }
 
     @PostMapping("/employer-register")
     public RedirectView employerRegister(@ModelAttribute Employer employer){
 
-        User loggedUser = userData.getLoggedUser();
+        User loggedUser = userDataService.getLoggedUser();
         employer.setUserId(loggedUser.getId());
 
         this.employerRepository.save(employer);
         return new RedirectView("/campaigns/show-all");
-
-        // return "auth/employer-register";
     }
 
     @PostMapping("/employee-register")
     public RedirectView employeeRegister(@ModelAttribute Employee employee){
 
-        User loggedUser = userData.getLoggedUser();
+        User loggedUser = userDataService.getLoggedUser();
 //        employee.setUserId(loggedUser.getId());
         employee.setUser(loggedUser);
 
         this.employeeRepository.save(employee);
-        return new RedirectView("employee-dashboard");
-
-        // return "auth/employer-register";
+        return new RedirectView("/employee-dashboard");
     }
 
     @PostMapping("/finish-registration")

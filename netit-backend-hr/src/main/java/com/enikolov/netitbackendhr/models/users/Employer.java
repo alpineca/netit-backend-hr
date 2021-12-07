@@ -14,7 +14,7 @@ public class Employer {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String companyName;
+    private String name;
     private int employeesCount;
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -30,7 +30,7 @@ public class Employer {
     @Column(name="user_id")
     private int userId;
 
-    @OneToMany(mappedBy = "employerId")
+    @OneToMany(mappedBy = "employer")
     private List<Campaign> campaigns;
 
     public int getId() {
@@ -41,12 +41,12 @@ public class Employer {
         this.id = id;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getName() {
+        return name;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getEmployeesCount() {

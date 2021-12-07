@@ -1,6 +1,8 @@
 package com.enikolov.netitbackendhr.controllers.html;
 
+import com.enikolov.netitbackendhr.components.InfoMessage;
 import com.enikolov.netitbackendhr.enums.AppliesStatus;
+import com.enikolov.netitbackendhr.enums.MessageStyle;
 import com.enikolov.netitbackendhr.models.general.Campaign;
 import com.enikolov.netitbackendhr.models.users.User;
 import com.enikolov.netitbackendhr.services.AppliesDataService;
@@ -21,11 +23,17 @@ public class AppliesController {
 
     @GetMapping("/applies/show-all")
     public String getAppliesPage(Model model) {
-        User user = this.userDataService.getLoggedUser();
+        User user           = this.userDataService.getLoggedUser();
+        InfoMessage message = new InfoMessage();
         model.addAttribute("user", user);
 
         HashMap<Campaign, AppliesStatus> applies = this.appliesDataService.getAppliedCampaigns();
+        if(applies.isEmpty()){
+            message.setMessage("There is no applies!");
+            message.setStyle(MessageStyle.ERROR_MSG);
+        }
 
+        model.addAttribute("message", message);
         model.addAttribute("applies", applies);
         return "applies/show-all";
     }
