@@ -22,6 +22,15 @@ public class UserDataService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    public boolean isUserLogged(){
+        try{
+            this.getLoggedUser();
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
     public User getLoggedUser(){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

@@ -26,16 +26,19 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
             .antMatchers("/style/**").permitAll()
-            .antMatchers("/register", "/").anonymous()
+            .antMatchers("/").permitAll()
+            .antMatchers("/register").anonymous()
             .antMatchers("/finish-registration").anonymous()
             .anyRequest().authenticated()
             .and()
                 .formLogin().loginPage("/login").usernameParameter("username")
                 .permitAll().defaultSuccessUrl("/user-dispatch")
             .and()
-                .logout()
+                .logout().permitAll()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling().accessDeniedPage("/");
 //                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 //                .invalidateHttpSession(true)
 //                .deleteCookies("JSESSIONID");
