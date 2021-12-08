@@ -26,6 +26,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
             .antMatchers("/style/**").permitAll()
+            .antMatchers("/images/**").permitAll()
             .antMatchers("/").permitAll()
             .antMatchers("/register").anonymous()
             .antMatchers("/finish-registration").anonymous()
@@ -39,9 +40,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .and()
                 .exceptionHandling().accessDeniedPage("/");
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .invalidateHttpSession(true)
-//                .deleteCookies("JSESSIONID");
     }
 
     
