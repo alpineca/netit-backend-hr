@@ -27,8 +27,9 @@ public class Employer {
     @Column(columnDefinition="TEXT")
     private String description;
 
-    @Column(name="user_id")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany(mappedBy = "employer")
     private List<Campaign> campaigns;
@@ -97,12 +98,12 @@ public class Employer {
         this.description = description;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Campaign> getCampaigns() {

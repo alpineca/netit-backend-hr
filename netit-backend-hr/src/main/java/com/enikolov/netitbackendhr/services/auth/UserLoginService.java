@@ -20,7 +20,7 @@ public class UserLoginService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
-        Optional<User> dbEntry = this.userRepository.findUserByUsername(username);
+        Optional<User> dbEntry = this.userRepository.findUserByEmail(username);
 
         if(dbEntry.isEmpty()){
             throw new UsernameNotFoundException("This user is not available!");

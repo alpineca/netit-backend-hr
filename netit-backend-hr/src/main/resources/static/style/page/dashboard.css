@@ -36,7 +36,7 @@
 
 }
 .campaign-box-description--show-one{
-    min-height: 250px;
+    min-height: 100px;
     margin: 20px;
     margin-top: 12px;
     
@@ -66,9 +66,10 @@
 
 .content-box-wrapper{
     border-bottom: solid #dedede 1px;
-    border-radius: 3px;
-    padding: 7px;
+    border-radius: 8px;
+    padding: 11px;
     padding-bottom: 0px;
+    margin-bottom: 10px;
     margin: 7px;
 }
 .page-content-title{
@@ -132,14 +133,20 @@
     font-style: italic;
 }
 .PENDING{
-    background: #FEEFB3;
+    background: #fff6e0;
 }
 .INTERVIEW_APPROVED{
-    background: #BEF;
+    background: #d9f1ff;
 }
 .JOB_APPROVED{
     background: #DFF2BF;
 }
 .REJECTED{
-    background: #FFBABA;
+    background: #ffd6d6;
+}
+.company-name{
+    color: cadetblue;
+    font-style: italic;
+    font-weight: bold;
+    margin-left: 8px;
 }

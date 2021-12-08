@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import javax.persistence.Access;
 
+import com.enikolov.netitbackendhr.models.users.Employee;
 import com.enikolov.netitbackendhr.models.users.Employer;
+import com.enikolov.netitbackendhr.models.users.User;
 import com.enikolov.netitbackendhr.repositories.users.EmployerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Component;
 public class EmployerDataService {
 
     @Autowired
+    private UserDataService userDataService;
+    @Autowired
     private EmployerRepository employerRepository;
 
     public List<Employer> getEmployerSelectionList(){
@@ -23,6 +27,13 @@ public class EmployerDataService {
 
         return allEmployers;
         
+    }
+    public void saveEmployer(Employer employer){
+        User user = this.userDataService.getLoggedUser();
+
+        employer.setUser(user);
+
+        this.employerRepository.save(employer);
     }
     
 }

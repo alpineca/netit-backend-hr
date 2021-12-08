@@ -69,8 +69,8 @@
                     
                 </div>
                 <div class="campaign-box-category">
-                    <span>Category <b th:text="${campaign.category.categoryName}"></b></span>
-                    <span th:if="${user.userRole == 'EMPLOYEE'}"> Company <b th:text="${campaign.employer.name}"></b></span>
+                    <span><b th:text="${campaign.category.categoryName}"></b></span>
+                    <span class="company-name" th:if="${user.userRole == 'EMPLOYEE'}" th:text="${campaign.employer.name}">Company</span>
                 </div>
                 
                 <div class="campaign-box-description">

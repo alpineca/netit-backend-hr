@@ -10,59 +10,58 @@
 
 			<div class="navigation--workspace-panel" th:if="${user.userRole == 'EMPLOYEE'}">
 				<div
-						class="navigation--workspace-panel-title">Меню</div>
+						class="navigation--workspace-panel-title">Menu</div>
 				<ul>
 					<a th:href="@{/campaigns/show-all}">
-						<li class="navigation--workspace-item">Актуални кампании</li>
+						<li class="navigation--workspace-item">Active campaigns</li>
 					</a>
 					<a th:href="@{/applies/show-all}">
-						<li class="navigation--workspace-item">Кандидатури</li>
+						<li class="navigation--workspace-item">My applies</li>
 					</a>
 					<a th:href="@{/applies/show-all/blues}">
-						<li class="navigation--workspace-item">Покани за интервю</li>
+						<li class="navigation--workspace-item">Pending interviews</li>
 					</a>
 				</ul>
 			</div>
 		<div class="navigation--workspace-panel" th:if="${user.userRole == 'EMPLOYER'}">
 			<div
-					class="navigation--workspace-panel-title">Моите кампании</div>
+					class="navigation--workspace-panel-title">Menu</div>
 			<ul>
 				<a th:href="@{/campaigns/create}">
-					<li class="navigation--workspace-item">Нова кампания</li>
+					<li class="navigation--workspace-item">Create new campaign</li>
 				</a>
 				<a th:href="@{/campaigns/show-all}">
-					<li class="navigation--workspace-item">Виж всички</li>
+					<li class="navigation--workspace-item">Show my campaigns</li>
+				</a>
+				<a th:href="@{/applies/show-all}">
+					<li class="navigation--workspace-item">Show applies</li>
 				</a>
 			</ul>
 		</div>
-		<div class="navigation--workspace-panel" th:if="${user.userRole == 'EMPLOYER'}">
+		<div class="navigation--workspace-panel" th:if="${user.userRole == 'HR'}">
 			<div
-					class="navigation--workspace-panel-title">Мрежа</div>
+					class="navigation--workspace-panel-title">Menu</div>
 			<ul>
-				<a th:href="@{/campaigns/create}">
-					<li class="navigation--workspace-item">Всички работодатели</li>
+				<a th:href="@{/applies/show-all}">
+					<li class="navigation--workspace-item">Show applies</li>
 				</a>
 				<a th:href="@{/campaigns/show-all}">
-					<li class="navigation--workspace-item">Всички кампании</li>
+					<li class="navigation--workspace-item">Show campaigns</li>
 				</a>
-			</ul>
-		</div>
-		<div class="navigation--workspace-panel" th:if="${user.userRole == 'EMPLOYER'}">
-			<div
-					class="navigation--workspace-panel-title">HR агенти</div>
-			<ul>
-				<li class="navigation--workspace-item">Известия</li>
-				<li class="navigation--workspace-item">Преглед на агентите</li>
 			</ul>
 		</div>
 		<div class="navigation--workspace-panel">
 			<div
-					class="navigation--workspace-panel-title" th:text="${user.userRole}">Профил</div>
+					class="navigation--workspace-panel-title">Profile</div>
 			<ul>
-				<li class="navigation--workspace-item">Преглед</li>
-				<li class="navigation--workspace-item">Настройки</li>
+				<a th:href="@{/messages/show-all}">
+					<li class="navigation--workspace-item">Messages</li>
+				</a>
+				<a th:href="@{/profile/edit}">
+					<li class="navigation--workspace-item">Edit profile</li>
+				</a>
 				<a th:href="@{/logout}">
-					<li class="navigation--workspace-item">Изход</li>
+					<li class="navigation--workspace-item">Logout</li>
 				</a>
 			</ul>
 		</div>

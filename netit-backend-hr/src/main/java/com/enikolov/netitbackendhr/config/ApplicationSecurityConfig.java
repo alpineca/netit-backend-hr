@@ -32,7 +32,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/finish-registration").anonymous()
             .anyRequest().authenticated()
             .and()
-                .formLogin().loginPage("/login").usernameParameter("username")
+                .formLogin().loginPage("/login").usernameParameter("email")
                 .permitAll().defaultSuccessUrl("/user-dispatch")
             .and()
                 .logout().permitAll()

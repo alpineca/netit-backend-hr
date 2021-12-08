@@ -9,25 +9,12 @@ public class User {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String username;
-
     private String password;
-
+    private String fullname;
     @Transient
     private String confirmPassword;
-
-    private String mail;
-
+    private String email;
     private String userRole;
-    
-
-    // @OneToMany(mappedBy = "user")
-    // private List<Employer> employers;
-
-    public User(){
-
-    }
 
     public int getId() {
         return id;
@@ -35,14 +22,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -53,12 +32,28 @@ public class User {
         this.password = password;
     }
 
-    public String getMail() {
-        return mail;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUserRole() {

@@ -36,7 +36,7 @@ public class UserLogin implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.currentUser.getUsername();
+        return this.currentUser.getEmail();
     }
 
     @Override

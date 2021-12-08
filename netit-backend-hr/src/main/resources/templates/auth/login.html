@@ -20,7 +20,7 @@
 		<!-- SIGN UP : Component -->
 		<div id="auth-panel">
 			<div class="center pb-16">
-				<span class="header">Login in NETIT BACKEND HR</span>
+				<span class="header">Login in NETIT HR</span>
 			</div>
 
 			<div 	th:if="${param.error}"
@@ -38,8 +38,8 @@
 					<input 
 						class="input"  
 						type="text" 
-						placeholder="Username" 
-						th:field="*{username}" 
+						placeholder="Your Email"
+						th:field="*{email}"
 						th:required="required">
 						
 					<input 

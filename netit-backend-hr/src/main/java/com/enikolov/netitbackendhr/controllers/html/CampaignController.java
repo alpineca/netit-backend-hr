@@ -52,7 +52,7 @@ public class CampaignController {
         InfoMessage message                 = (InfoMessage) model.asMap().get("message");
         FilterByEmployer employerSelected   = new FilterByEmployer();
 
-        if(user.getUserRole().equals("EMPLOYEE")){
+        if(user.getUserRole().equals("EMPLOYEE") || user.getUserRole().equals("HR")){
             campaignsList = this.campaignsDataService.getAll();
 
         }
@@ -62,7 +62,7 @@ public class CampaignController {
 
         }
 
-        if(campaignsList.isEmpty()) {
+        if(campaignsList == null) {
             message = new InfoMessage();
             message.setMessage("No campaigns found");
             message.setStyle(MessageStyle.ERROR_MSG);

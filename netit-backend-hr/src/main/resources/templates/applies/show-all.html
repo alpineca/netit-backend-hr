@@ -28,10 +28,13 @@
             <div class="content-box-wrapper" th:classappend="${apply.value}"  th:each="apply : ${applies}">
                 <div class="box-header">
 
-                    <div class="campaign-box-title">
-                        <a th:href="@{|/campaigns/view/${apply.key.id}|}">
+                    <div class="campaign-box-title" th:if="${user.userRole == 'HR'}">
+                        <a th:href="@{|/applies/show/${apply.key.id}|}">
                             <span th:text="${apply.key.title}">Campaign title</span>
                         </a>
+                    </div>
+                    <div class="campaign-box-title" th:if="${user.userRole != 'HR'}">
+                        <span th:text="${apply.key.title}">Campaign title</span>
                     </div>
                     <div class="in-box-actions">
                         <span class="apply-status" th:text="${apply.value}">Apply status </span>

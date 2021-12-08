@@ -23,10 +23,10 @@
 			<div class="center pb-24">
 				<span class="header"><span th:text="${username}"></span>, one more step before get started....</span>
 			</div>
-		
-			<div>
+<!--	EMPLOYER REGISTRATION FORM	-->
+			<div th:if="${user.userRole == 'EMPLOYER'}">
 				<form
-					method="post" th:object="${employer}" th:action="@{/employer-register}">					
+					method="post" th:object="${employer}" th:action="@{/finish-register}">
                     <p>Your company information</p>
 
 					<input 
@@ -76,6 +76,67 @@
 						type="submit">Sign Up</button>
 				</form>
 			</div>
+<!--	END OF EMPLOYER REGISTRATION FORM		-->
+<!--		EMPLOYEE REGISTRATION FORM	-->
+			<div th:if="${user.userRole == 'EMPLOYEE'}">
+				<form
+						method="post" th:object="${employee}" th:action="@{/finish-register}">
+					<p>Your personal information</p>
+					<input
+							class="input"
+							type="text"
+							th:field="*{age}"
+							placeholder="Your age">
+
+					<select th:field="*{city}" class="input">
+						<option th:value="select">Select your city</option>
+						<option th:each="thisCity : ${cities}" th:value="${thisCity.id}" th:text="${thisCity.cityName}"></option>
+					</select>
+
+					<input
+							class="input"
+							type="text"
+							th:field="*{address}"
+							placeholder="Address">
+
+					<input
+							class="input"
+							type="text"
+							th:field="*{webAddress}"
+							placeholder="Web address(portfolio)">
+					<input
+							class="input"
+							type="text"
+							th:field="*{telephone}"
+							placeholder="Telephone number">
+					<input
+							class="input"
+							type="text"
+							th:field="*{socialMedia}"
+							placeholder="Social media account">
+
+					<button
+							class="input input-button input-button--green"
+							type="submit">Finish registration</button>
+				</form>
+			</div>
+<!--	END OF EMPLOYEE REGISTRATION FORM		-->
+<!--		HR REGISTRATION FORM	-->
+			<div th:if="${user.userRole == 'HR'}">
+				<form
+						method="post">
+
+					<input
+							class="input"
+							type="text"
+							placeholder="Full name">
+
+					<button
+							class="input input-button input-button--green"
+							type="submit">Sign Up</button>
+				</form>
+			</div>
+<!--	END OF HR REGISTRATION FORM		-->
 		</div>
 	
 	

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>All campaigns</title>
+    <link th:href="@{/style/global/global.css}"     rel="stylesheet" />
+    <link th:href="@{/style/global/util.css}"       rel="stylesheet" />
+    <link th:href="@{/style/global/form.css}"       rel="stylesheet" />
+    <link th:href="@{/style/page/dashboard.css}"    rel="stylesheet" />
+    <link th:href="@{/style/page/show-all.css}"     rel="stylesheet" />
+</head>
+
+<body>
+    
+    <div class="center ptb-8">
+        <img id="logo" src="/images/logo.png" />
+    </div>
+    <div id="app-wrapper">
+
+        <div class="navigation--main" th:replace="fragments/navigation-sidebar :: navigation-sidebar">
+        </div>
+
+        <div id="content--main">
+                <div th:if="${infoMessage != null}" th:class="${infoMessage.style}">
+                    <span th:text="${infoMessage.message}">InfoMessage</span>
+                </div>
+
+            <div class="content-box-wrapper"  th:each="message : ${message}">
+                <div class="box-header">
+
+                    <div class="campaign-box-title">
+                        <span th:text="${message.title}">Campaign 1</span>
+                    </div>
+                    <div class="in-box-actions">
+                        <a th:href="@{|/campaigns/view/${message.id}|}">View</a>
+                        <span> | </span>
+                        <a th:href="@{|/campaigns/delete/${message.id}|}">Reply</a>
+                        
+                    </div>               
+                </div>
+                <div class="campaign-box-category">
+                    <span><b th:text="${message.sender.}"></b></span>
+                </div>
+                
+                <div class="campaign-box-description">
+                    <span th:text="${campaign.description}">Description</span>
+                </div>
+
+                <div class="campaign-box-footer">
+                    <span class="campaign-box-footer--salary">Salary: <b th:text="${campaign.salaryMin}">1000</b> to <b th:text="${campaign.salaryMax}">1500</b></span>
+                    <span class="campaign-box-footer--publishing">Publishing time: <b th:text="${campaign.publishDate}">02.12.2021</b> <b th:text="${campaign.publishTime}"> 18:44</b></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

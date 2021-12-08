@@ -59,6 +59,20 @@ public class AppliesDataService {
 
         return appliedCampaigns;
     }
+    public HashMap<Campaign, AppliesStatus> gettAllApplies(){
+        HashMap<Campaign, AppliesStatus> appliedCampaigns = new HashMap<>();
+
+
+        List<Applies> appliesModels = this.appliesRepository.findAll();
+        for(Applies apply : appliesModels){
+            appliedCampaigns.put(apply.getCampaign(), apply.getStatus());
+        }
+
+        return appliedCampaigns;
+    }
+    public Optional<Applies> getApplyById(int id){
+        return this.appliesRepository.findById(id);
+    }
     public HashMap<Campaign, AppliesStatus> getBluesAppliedCampaigns(){
         Employee thisEmployee = this.userData.getLoggedEmployee();
         HashMap<Campaign, AppliesStatus> appliedCampaigns = new HashMap<>();
@@ -72,5 +86,14 @@ public class AppliesDataService {
         }
 
         return appliedCampaigns;
+    }
+    public void setApplieStatus(int id, AppliesStatus status){
+        Optional<Applies> thisApplieModel = this.appliesRepository.findById(id);
+        if(thisApplieModel.isPresent()){
+            Applies thisApplie = thisApplieModel.get();
+            thisApplie.setStatus(status);
+            this.appliesRepository.save(thisApplie);
+        }
+
     }
 }

@@ -1,7 +1,6 @@
 package com.enikolov.netitbackendhr.controllers.html;
 
 import com.enikolov.netitbackendhr.models.DTO.ChangeMailDTO;
-import com.enikolov.netitbackendhr.models.DTO.UserDTO;
 import com.enikolov.netitbackendhr.models.users.User;
 import com.enikolov.netitbackendhr.repositories.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +20,25 @@ public class UserController {
 
     @GetMapping("/register")
     public String getRegisterPage(Model model){
-        UserDTO entity = new UserDTO();
-        int password2 = 0;
-        model.addAttribute("user", entity);
-        model.addAttribute("password2", password2);
+//        UserDTO entity = new UserDTO();
+//        int password2 = 0;
+//        model.addAttribute("user", entity);
+//        model.addAttribute("password2", password2);
         return "register";
     }
 
     @PostMapping("/register/dto")
-    public RedirectView createUser(@ModelAttribute UserDTO entityDTO){
-        User entity = entityDTO.createUserEntity();
-
-        if(entityDTO.getPassword().equals(entityDTO.getConfirmPassword())){
-            this.userRepository.save(entity);
-            return new RedirectView("/login");
-        }
-        else{
-            return new RedirectView("/register");
-        }
+    public RedirectView createUser(@ModelAttribute User entity){
+//        User entity = entityDTO.createUserEntity();
+//
+//        if(entityDTO.getPassword().equals(entityDTO.getConfirmPassword())){
+//            this.userRepository.save(entity);
+//            return new RedirectView("/login");
+//        }
+//        else{
+//            return new RedirectView("/register");
+//        }\
+        return new RedirectView("/register");
 
     }
 
@@ -50,9 +50,9 @@ public class UserController {
     @GetMapping("/change-email")
     public String changeEmail(Model model){
 
-        ChangeMailDTO changeMail = new ChangeMailDTO();
-
-        model.addAttribute("change_mail", changeMail);
+//        ChangeMailDTO changeMail = new ChangeMailDTO();
+//
+//        model.addAttribute("change_mail", changeMail);
 
         return "/change-email";
     }
@@ -65,7 +65,7 @@ public class UserController {
 
         if(httpResult.isPresent()){
             User entity = this.userRepository.getById(userId);
-            entity.setMail(newMail);
+            entity.setEmail(newMail);
 
             this.userRepository.save(entity);
 

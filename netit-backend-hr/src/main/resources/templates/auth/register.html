@@ -26,18 +26,19 @@
 		
 			<div>
 				<form
-					method="post" th:object="${userDTO}" th:action="@{/finish-registration}">
-                    <input
-						th:field="*{username}"
-                        class="input"  
-                        type="text" 
-                        placeholder="Username">
+					method="post" th:object="${user}" th:action="@{/register}">
 
 					<input 
-					th:field="*{mail}"
+					th:field="*{email}"
 						class="input"  
 						type="text" 
 						placeholder="E-mail">
+
+					<input
+							th:field="*{fullname}"
+							class="input"
+							type="text"
+							placeholder="Full name">
 						
                     <input 
 						th:field="*{password}"
