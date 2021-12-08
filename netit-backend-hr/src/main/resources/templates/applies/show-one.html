@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>All campaigns</title>
+    <link th:href="@{/style/global/global.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/util.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/form.css}" rel="stylesheet" />
+    <link th:href="@{/style/page/dashboard.css}" rel="stylesheet" />
+    <link th:href="@{/style/page/applies.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="center ptb-8">
+        <img id="logo" src="/images/logo.png" />
+    </div>
+    <div id="app-wrapper">
+
+        <div class="navigation--main" th:replace="fragments/navigation-sidebar :: navigation-sidebar">
+        </div>
+
+        <div id="content--main">
+            <div th:if="${message != null}" th:class="${message.style}">
+                <span th:text="${message.message}">InfoMessage</span>
+            </div>
+
+            <div class="content-box-wrapper" th:classappend="${apply.status}">
+                <div class="box-header">
+
+                    <div class="campaign-box-title">
+                        <a th:href="@{|/applies/show/${apply.id}|}">
+                            <span th:text="${campaign.title}">Campaign title</span>
+                        </a>
+                    </div>
+                    <div class="in-box-actions">
+                        <span class="apply-status" th:text="${apply.status}">Apply status </span>
+                    </div>
+
+                </div>
+                <div class="campaign-box-category">
+                    <span>Category <b th:text="${campaign.category.categoryName}"></b></span>
+                    <span> Company <b th:text="${campaign.employer.name}"></b></span>
+                </div>
+
+                <div class="campaign-box-description">
+                    <span th:text="${campaign.description}">Description</span>
+                </div>
+
+                <div class="campaign-box-footer">
+                    <span class="campaign-box-footer--salary">Salary: <b th:text="${campaign.salaryMin}">1000</b> to <b
+                            th:text="${campaign.salaryMax}">1500</b></span>
+                    <span class="campaign-box-footer--publishing">Publishing time: <b
+                            th:text="${campaign.publishDate}">02.12.2021</b> <b th:text="${campaign.publishTime}">
+                            18:44</b></span>
+                </div>
+            </div>
+
+            <div class="content-box-wrapper cadidate-box">
+                <div class="box-header">
+
+                    <div class="campaign-box-title">
+                        <span th:text="${candidateUser.fullname}">Campaign 1</span>
+                    </div>
+                    <div class="in-box-actions" th:if="${user.userRole == 'HR'}">
+                        <a th:href="@{|/applies/view/${campaign.id}|}">Send message</a>
+
+                    </div>
+                </div>
+
+                <div class="employee-info--wrapper">
+                    <div class="info-box--wrapper">
+                        <ul>
+                            <li class="info-box--li-title">Age</li>
+                            <li class="info-box--li-content">18</li>
+                            <li class="info-box--li-title">City</li>
+                            <li class="info-box--li-content">Sofia</li>
+                            <li class="info-box--li-title">Telephone</li>
+                            <li class="info-box--li-content">0896012745</li>
+                            <li class="info-box--li-title">Portfolio</li>
+                            <li class="info-box--li-content">Click here >></li>
+                            <li class="info-box--li-title">Social media</li>
+                            <li class="info-box--li-content">Click here >></li>
+                        </ul>
+                    </div>
+                    <div>
+                        Lorem ipsum е един от най-често използваните в печатарството и графичния дизайн заготовъчни
+                        текстове, служещи да запълват с текст онези графични елементи на документ или графична
+                        презентация, които трябва да бъдат представени със собствен шрифт и типография,
+                    </div>
+                </div>
+                <div class="campaign-box-footer buttons-center">
+                    <form>
+
+                        <input class="button--send-message button" type="button" onclick="location.href='/register';"
+                            value="Send message" />
+                        <input class="button--interview button" type="button" th:onclick="|location.href='/applies/review/${apply.id}/interview-approved'|"
+                            value="Interview" />
+                        <input class="button--job-approve button" type="button" th:onclick="|location.href='/applies/review/${apply.id}/job-approved'|"
+                            value="Approve for campaign" />
+                        <input class="button--reject button" type="button" th:onclick="|location.href='/applies/review/${apply.id}/rejected'|"
+                            value="Reject" />
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

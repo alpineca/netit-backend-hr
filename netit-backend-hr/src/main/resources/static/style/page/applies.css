@@ -1,0 +1,58 @@
+.button--interview{
+    background: #3492eb;
+    color: whitesmoke;
+}
+.button--job-approve{
+    background: #35c409;
+    color: whitesmoke;
+}
+.button--reject{
+    background: #eb3434;
+    color: whitesmoke;
+}
+.button--send-message{
+    background: #f8a72d;
+    color: whitesmoke;
+}
+.button{
+    height: 35px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.buttons-center{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+.cadidate-box{
+    border: solid 1px #ececec;
+}
+.info-box--wrapper{
+    margin: auto;
+    border-right: solid 1px #cecece;
+    min-width: 200px;
+    margin-right: 20px;
+}
+.info-box--li-title{
+    font-weight: 500;
+    margin-bottom: -8px;
+    font-style: italic;
+    color: #287094;
+}
+.info-box--li-content{
+    margin-bottom: 10px;
+    font-size: 25px;
+    color: yellowgreen;
+    font-weight: 300;
+}
+.employee-info--wrapper{
+    display:inline-flex;
+    min-height: 100px;
+    margin: 8px;
+    margin-top: 12px;
+}
