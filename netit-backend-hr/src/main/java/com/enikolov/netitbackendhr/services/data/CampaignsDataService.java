@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import com.enikolov.netitbackendhr.components.SystemClock;
+import com.enikolov.netitbackendhr.models.general.Applies;
 import com.enikolov.netitbackendhr.models.general.Campaign;
 import com.enikolov.netitbackendhr.repositories.general.AppliesRepository;
 import com.enikolov.netitbackendhr.repositories.general.CampaignRepository;
 import com.enikolov.netitbackendhr.repositories.users.EmployeeRepository;
 import com.enikolov.netitbackendhr.repositories.users.EmployerRepository;
-import com.enikolov.netitbackendhr.services.AppliesDataService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -62,7 +62,16 @@ public class CampaignsDataService {
         this.campaignRepository.save(entityToUpdate);
     }
     public void deleteCampaign(Campaign entity){
-        this.campaignRepository.delete(entity);
+        List<Applies> appliesByCampaign = this.appliesDataService.getAppliesByCampaign(entity);
+        if(appliesByCampaign.isEmpty()){
+            this.campaignRepository.delete(entity);
+            return;
+        }else{
+            for(Applies apply : appliesByCampaign){
+                this.appliesDataService.deleteApply(apply);
+            }
+            this.campaignRepository.delete(entity);
+        }
     }
     public void createNewCampaign(Campaign newCampaign){
         String date             = this.systemClock.getSystemDate();

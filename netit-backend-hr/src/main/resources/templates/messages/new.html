@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Edit campaign</title>
+    <link th:href="@{/style/global/global.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/util.css}" rel="stylesheet" />
+    <link th:href="@{/style/global/form.css}" rel="stylesheet" />
+    <link th:href="@{/style/page/dashboard.css}" rel="stylesheet" />
+</head>
+
+<body>
+    
+    <div class="center ptb-8">
+        <img id="logo" src="/images/logo.png" />
+    </div>
+    <div id="app-wrapper">
+
+        <div class="navigation--main" th:replace="fragments/navigation-sidebar :: navigation-sidebar">
+        </div>
+
+        <div id="content--main">
+    <!-- START PAGE CONTENT -->
+    <!-- ****************** -->
+        <div>
+            <form
+                    method="post"
+                    th:object="${messageReply}"
+                    th:action="@{/messages/reply}">
+
+                <input
+                        type="hidden"
+                        th:field="*{recipient}">
+
+                <input
+                        class="input"
+                        type="text"
+                        name="title"
+                        th:field="*{title}">
+                <input
+                        class="input"
+                        type="text"
+                        name="title"
+                        th:field="*{recipient.fullname}" disabled>
+
+                <textarea
+                        class="input-textarea"
+                        th:field="*{content}">
+                    </textarea>
+                </textarea>
+                <button class="input input-button input-button--green" type="submit">Send message</button>
+
+            </form>
+        </div>
+            <!-- END PAGE CONTENT -->
+            <!-- ****************** -->
+        </div>
+    </div>
+
+</body>
+</html>

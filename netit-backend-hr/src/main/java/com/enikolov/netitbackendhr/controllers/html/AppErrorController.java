@@ -17,8 +17,6 @@ public class AppErrorController implements ErrorController {
     @RequestMapping("/error")
     public RedirectView handleError(){
         if(userDataService.isUserLogged()){
-            System.out.println("***************");
-            System.out.println("some error");
             return new RedirectView("/user-dispatch");
         }
 

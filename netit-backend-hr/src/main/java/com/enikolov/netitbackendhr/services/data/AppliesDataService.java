@@ -1,28 +1,26 @@
-package com.enikolov.netitbackendhr.services;
+package com.enikolov.netitbackendhr.services.data;
 
 import com.enikolov.netitbackendhr.components.SystemClock;
 import com.enikolov.netitbackendhr.enums.AppliesStatus;
 import com.enikolov.netitbackendhr.models.general.Applies;
 import com.enikolov.netitbackendhr.models.general.Campaign;
 import com.enikolov.netitbackendhr.models.users.Employee;
+import com.enikolov.netitbackendhr.models.users.Employer;
 import com.enikolov.netitbackendhr.repositories.general.AppliesRepository;
 import com.enikolov.netitbackendhr.repositories.general.CampaignRepository;
 import com.enikolov.netitbackendhr.repositories.users.EmployeeRepository;
 import com.enikolov.netitbackendhr.repositories.users.UserRepository;
-import com.enikolov.netitbackendhr.services.data.UserDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class AppliesDataService {
     @Autowired
     private SystemClock systemClock;
     @Autowired
-    private UserDataService userData;
+    private UserDataService userDataService;
     @Autowired
     private AppliesRepository appliesRepository;
     @Autowired
@@ -47,34 +45,32 @@ public class AppliesDataService {
         this.appliesRepository.save(applyThisCampaign);
     }
 
-    public HashMap<Campaign, AppliesStatus> getAppliedCampaigns(){
-        Employee thisEmployee = this.userData.getLoggedEmployee();
-        HashMap<Campaign, AppliesStatus> appliedCampaigns = new HashMap<>();
-
-
-        List<Applies> appliesModels = this.appliesRepository.findAllByEmployeeId(thisEmployee.getId());
-        for(Applies apply : appliesModels){
-            appliedCampaigns.put(apply.getCampaign(), apply.getStatus());
-        }
-
-        return appliedCampaigns;
+    public List<Applies> getAppliedCampaigns(){
+        Employee thisEmployee = this.userDataService.getLoggedEmployee();
+        return this.appliesRepository.findAllByEmployeeId(thisEmployee.getId());
     }
-    public HashMap<Campaign, AppliesStatus> gettAllApplies(){
-        HashMap<Campaign, AppliesStatus> appliedCampaigns = new HashMap<>();
+    public List<Applies> getAppliesForMyCampaigns(){
+        Employer thisEmployer           = this.userDataService.getLoggedEmployer();
+        List<Applies> appliesList       = new ArrayList<>();
+        List<Campaign> campaignList     = this.campaignRepository.findAllByEmployerId(thisEmployer.getId());
 
-
-        List<Applies> appliesModels = this.appliesRepository.findAll();
-        for(Applies apply : appliesModels){
-            appliedCampaigns.put(apply.getCampaign(), apply.getStatus());
+        for(Campaign element : campaignList){
+            Optional<Applies> applyModel = this.appliesRepository.findByCampaignId(element.getId());
+            if(applyModel.isPresent()){
+                appliesList.add(applyModel.get());
+            }
         }
-
-        return appliedCampaigns;
+        
+        return appliesList;
+    }
+    public List<Applies> gettAllApplies(){
+        return this.appliesRepository.findAll();
     }
     public Optional<Applies> getApplyById(int id){
         return this.appliesRepository.findById(id);
     }
     public HashMap<Campaign, AppliesStatus> getBluesAppliedCampaigns(){
-        Employee thisEmployee = this.userData.getLoggedEmployee();
+        Employee thisEmployee = this.userDataService.getLoggedEmployee();
         HashMap<Campaign, AppliesStatus> appliedCampaigns = new HashMap<>();
 
 
@@ -86,6 +82,12 @@ public class AppliesDataService {
         }
 
         return appliedCampaigns;
+    }
+    public List<Applies> getAppliesByCampaign(Campaign campaign){
+        return this.appliesRepository.findAllByCampaignId(campaign.getId());
+    }
+    public void deleteApply(Applies apply){
+        this.appliesRepository.delete(apply);
     }
     public void setApplieStatus(int id, AppliesStatus status){
         Optional<Applies> thisApplieModel = this.appliesRepository.findById(id);

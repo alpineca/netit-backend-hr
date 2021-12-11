@@ -7,7 +7,8 @@ import com.enikolov.netitbackendhr.models.general.Applies;
 import com.enikolov.netitbackendhr.models.general.Campaign;
 import com.enikolov.netitbackendhr.models.users.Employee;
 import com.enikolov.netitbackendhr.models.users.User;
-import com.enikolov.netitbackendhr.services.AppliesDataService;
+import com.enikolov.netitbackendhr.services.data.AppliesDataService;
+import com.enikolov.netitbackendhr.services.data.MessageDataService;
 import com.enikolov.netitbackendhr.services.data.UserDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,27 +28,34 @@ public class AppliesController {
     private UserDataService userDataService;
     @Autowired
     private AppliesDataService appliesDataService;
+    @Autowired
+    private MessageDataService messageDataService;
 
     @GetMapping("/applies/show-all")
     public String getAppliesPage(Model model) {
         User user           = this.userDataService.getLoggedUser();
         InfoMessage message = new InfoMessage();
-        HashMap<Campaign, AppliesStatus> applies = null;
+        List<Applies> applies = new ArrayList<>();
         model.addAttribute("user", user);
-        if(user.getUserRole().equals("HR") || user.getUserRole().equals("SUPER")){
+        boolean hasUnread = this.messageDataService.isUnreadMessages();
+        if(user.getUserRole().equals("HR")){
             applies = this.appliesDataService.gettAllApplies();
         }
-        else{
+        if(user.getUserRole().equals("EMPLOYER")){
+            applies = this.appliesDataService.getAppliesForMyCampaigns();
+        }
+        if(user.getUserRole().equals("EMPLOYEE")){
             applies = this.appliesDataService.getAppliedCampaigns();
         }
 
-        if(applies == null){
+        if(applies.size() < 1){
             message.setMessage("There is no applies!");
             message.setStyle(MessageStyle.ERROR_MSG);
         }
 
         model.addAttribute("message", message);
         model.addAttribute("applies", applies);
+        model.addAttribute("hasUnread", hasUnread);
         return "applies/show-all";
     }
 
@@ -58,11 +68,12 @@ public class AppliesController {
             Employee candidate  = apply.getEmployee();
             User candidateUser  = candidate.getUser();
 
-            model.addAttribute("apply", apply);
-            model.addAttribute("campaign", campaign);
-            model.addAttribute("candidate", candidate);
-            model.addAttribute("candidateUser", candidateUser);
-            model.addAttribute("user", this.userDataService.getLoggedUser());
+            model.addAttribute("apply"          , apply);
+            model.addAttribute("campaign"       , campaign);
+            model.addAttribute("candidate"      , candidate);
+            model.addAttribute("candidateUser"  , candidateUser);
+            model.addAttribute("user"           , this.userDataService.getLoggedUser());
+            model.addAttribute("hasUnread", this.messageDataService.isUnreadMessages());
             return "/applies/show-one";
         }
 
@@ -77,6 +88,7 @@ public class AppliesController {
         HashMap<Campaign, AppliesStatus> applies = this.appliesDataService.getBluesAppliedCampaigns();
 
         model.addAttribute("applies", applies);
+        model.addAttribute("hasUnread", this.messageDataService.isUnreadMessages());
         return "applies/show-all";
     }
     @GetMapping("/applies/review/{id}/{status}")

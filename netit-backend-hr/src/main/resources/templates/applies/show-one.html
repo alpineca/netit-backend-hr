@@ -73,11 +73,11 @@
                     <div class="info-box--wrapper">
                         <ul>
                             <li class="info-box--li-title">Age</li>
-                            <li class="info-box--li-content">18</li>
+                            <li class="info-box--li-content" th:text="${campaign.employee.age}">100</li>
                             <li class="info-box--li-title">City</li>
-                            <li class="info-box--li-content">Sofia</li>
+                            <li class="info-box--li-content" th:text="${campaign.employee.city.name}">So</li>
                             <li class="info-box--li-title">Telephone</li>
-                            <li class="info-box--li-content">0896012745</li>
+                            <li class="info-box--li-content" th:text="${campaign.employee.telephone}">089645</li>
                             <li class="info-box--li-title">Portfolio</li>
                             <li class="info-box--li-content">Click here >></li>
                             <li class="info-box--li-title">Social media</li>
@@ -93,7 +93,7 @@
                 <div class="campaign-box-footer buttons-center">
                     <form>
 
-                        <input class="button--send-message button" type="button" onclick="location.href='/register';"
+                        <input class="button--send-message button" type="button" th:onclick="|location.href='/message/send/apply/${apply.id}'|"
                             value="Send message" />
                         <input class="button--interview button" type="button" th:onclick="|location.href='/applies/review/${apply.id}/interview-approved'|"
                             value="Interview" />

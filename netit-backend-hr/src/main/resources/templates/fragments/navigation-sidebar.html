@@ -7,6 +7,8 @@
 <body>
 	<div id="navigation--sidebar" th:fragment="navigation-sidebar">					
 	<div class="sidebar-wrapper">
+		<div
+						class="navigation--workspace-panel-title" th:text="${user.fullname}">Menu</div>
 
 			<div class="navigation--workspace-panel" th:if="${user.userRole == 'EMPLOYEE'}">
 				<div
@@ -54,8 +56,14 @@
 			<div
 					class="navigation--workspace-panel-title">Profile</div>
 			<ul>
-				<a th:href="@{/messages/show-all}">
-					<li class="navigation--workspace-item">Messages</li>
+				<a th:href="@{/messages/inbox/show-all}" th:if="${hasUnread}">
+					<li class="navigation--workspace-item hasUnread">UNREAD MESSAGES</li>
+				</a>
+				<a th:href="@{/messages/inbox/show-all}" th:if="${!hasUnread}">
+					<li class="navigation--workspace-item">Inbox</li>
+				</a>
+				<a th:href="@{/messages/outbox/show-all}">
+					<li class="navigation--workspace-item">Outbox</li>
 				</a>
 				<a th:href="@{/profile/edit}">
 					<li class="navigation--workspace-item">Edit profile</li>

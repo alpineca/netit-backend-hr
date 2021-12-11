@@ -17,7 +17,6 @@ public class Message {
     private String content;
     private String date;
     private String time;
-    @Column(columnDefinition = "boolean default true")
     private Boolean unread;
     @ManyToOne
     @JoinColumn(name = "sender_id")

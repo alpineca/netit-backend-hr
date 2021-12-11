@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {
     public List<Message> getMessagesByRecipientId(int recipientId);
+    public List<Message> getMessagesBySenderId(int senderId);
 }

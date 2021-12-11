@@ -2,6 +2,9 @@ package com.enikolov.netitbackendhr.controllers.html;
 
 import java.util.HashMap;
 
+import com.enikolov.netitbackendhr.components.FieldChecker;
+import com.enikolov.netitbackendhr.components.InfoMessage;
+import com.enikolov.netitbackendhr.enums.MessageStyle;
 import com.enikolov.netitbackendhr.models.users.Employee;
 import com.enikolov.netitbackendhr.models.users.Employer;
 import com.enikolov.netitbackendhr.models.users.User;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -28,6 +32,8 @@ public class RegistrationController {
     private EmployeeDataService employeeDataService;
     @Autowired
     private EmployerDataService employerDataService;
+    @Autowired
+    private FieldChecker fieldChecker;
 
 
     @GetMapping("/register")
@@ -35,8 +41,11 @@ public class RegistrationController {
 
         HashMap<String, String> selectAccountType = getAccountTypes();
 
+        InfoMessage message = (InfoMessage) model.asMap().get("message");
+
         model.addAttribute("selectAccountType"  , selectAccountType);
         model.addAttribute("user", new User());
+        if(message != null) model.addAttribute("message", message);
         return "auth/register";
 
     }
@@ -67,21 +76,51 @@ public class RegistrationController {
             return new RedirectView("/user-dispatch");
 
         }catch (Exception e){
+            e.printStackTrace();
             return new RedirectView("/user-dispatch");
         }
     }
     @PostMapping("/register")
-    public RedirectView registerUser(@ModelAttribute User user, Model model){
-        
-        // User registeredUser = null;
+    public RedirectView registerUser(@ModelAttribute User user, Model model, RedirectAttributes redirectAttributes){
+        InfoMessage message = new InfoMessage();
 
         if(!checkForIncorrectInputs(user)){
+            message.setMessage("All fields are required!");
+            message.setStyle(MessageStyle.ERROR_MSG);
+            redirectAttributes.addFlashAttribute("message", message);
+            return new RedirectView("/register");
+        }
+        if(!fieldChecker.isEmailValid(user.getEmail())){
+            message.setMessage( "Please enter valid email address!");
+            message.setStyle(MessageStyle.ERROR_MSG);
+            redirectAttributes.addFlashAttribute("message", message);
+            return new RedirectView("/register");
+        }
+        if(!fieldChecker.isEmailFree(user.getEmail())){
+            message.setMessage( "This email was used for registration.\n Please enter other email.");
+            message.setStyle(MessageStyle.ERROR_MSG);
+            redirectAttributes.addFlashAttribute("message", message);
+            return new RedirectView("/register");
+        }
+        if(!fieldChecker.isFullnameValid(user.getFullname())){
+            message.setMessage( "Please enter valid full name!\n " +
+                                "Full name must contains First name, last name written on latin");
+            message.setStyle(MessageStyle.ERROR_MSG);
+            redirectAttributes.addFlashAttribute("message", message);
+            return new RedirectView("/register");
+        }
+        if(!fieldChecker.isPasswordValid(user.getPassword())){
+            message.setMessage( "Please enter valid password!\n Password must be 6-10 chars " +
+                                "and contains lower and upper case letter");
+            message.setStyle(MessageStyle.ERROR_MSG);
+            redirectAttributes.addFlashAttribute("message", message);
             return new RedirectView("/register");
         }
         else{
             this.userDataService.saveNewUser(user);
+            return new RedirectView("/login");
         }
-        return new RedirectView("/login");
+
     }
 
     private HashMap<String, String> getAccountTypes(){

@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface AppliesRepository extends JpaRepository<Applies, Integer> {
     public List<Applies> findAllByEmployeeId(int employeeId);
+    public List<Applies> findAllByCampaignId(int campaignId);
+    public Optional<Applies> findByCampaignId(int campaignId);
 }

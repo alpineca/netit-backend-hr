@@ -25,34 +25,34 @@
                 <span th:text="${message.message}">InfoMessage</span>
             </div>
 
-            <div class="content-box-wrapper" th:classappend="${apply.value}"  th:each="apply : ${applies}">
+            <div class="content-box-wrapper" th:classappend="${apply.status}"  th:each="apply : ${applies}">
                 <div class="box-header">
 
                     <div class="campaign-box-title" th:if="${user.userRole == 'HR'}">
-                        <a th:href="@{|/applies/show/${apply.key.id}|}">
-                            <span th:text="${apply.key.title}">Campaign title</span>
+                        <a th:href="@{|/applies/show/${apply.id}|}">
+                            <span th:text="${apply.campaign.title}">Campaign title</span>
                         </a>
                     </div>
                     <div class="campaign-box-title" th:if="${user.userRole != 'HR'}">
-                        <span th:text="${apply.key.title}">Campaign title</span>
+                        <span th:text="${apply.campaign.title}">Campaign title</span>
                     </div>
                     <div class="in-box-actions">
-                        <span class="apply-status" th:text="${apply.value}">Apply status </span>
+                        <span class="apply-status" th:text="${apply.status}">Apply status </span>
                     </div>
                     
                 </div>
                 <div class="campaign-box-category">
-                    <span>Category <b th:text="${apply.key.category.categoryName}"></b></span>
-                    <span> Company <b th:text="${apply.key.employer.name}"></b></span>
+                    <span>Category <b th:text="${apply.campaign.category.categoryName}"></b></span>
+                    <span> Company <b th:text="${apply.campaign.employer.name}"></b></span>
                 </div>
                 
                 <div class="campaign-box-description">
-                    <span th:text="${apply.key.description}">Description</span>
+                    <span th:text="${apply.campaign.description}">Description</span>
                 </div>
 
                 <div class="campaign-box-footer">
-                    <span class="campaign-box-footer--salary">Salary: <b th:text="${apply.key.salaryMin}">1000</b> to <b th:text="${apply.key.salaryMax}">1500</b></span>
-                    <span class="campaign-box-footer--publishing">Publishing time: <b th:text="${apply.key.publishDate}">02.12.2021</b> <b th:text="${apply.key.publishTime}"> 18:44</b></span>
+                    <span class="campaign-box-footer--salary">Salary: <b th:text="${apply.campaign.salaryMin}">1000</b> to <b th:text="${apply.campaign.salaryMax}">1500</b></span>
+                    <span class="campaign-box-footer--publishing">Publishing time: <b th:text="${apply.campaign.publishDate}">02.12.2021</b> <b th:text="${apply.campaign.publishTime}"> 18:44</b></span>
                 </div>
             </div>
         </div>

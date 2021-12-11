@@ -5,11 +5,7 @@ import com.enikolov.netitbackendhr.models.general.Campaign;
 import com.enikolov.netitbackendhr.models.users.Employee;
 import com.enikolov.netitbackendhr.models.users.Employer;
 import com.enikolov.netitbackendhr.models.users.User;
-import com.enikolov.netitbackendhr.services.AppliesDataService;
-import com.enikolov.netitbackendhr.services.data.CampaignsDataService;
-import com.enikolov.netitbackendhr.services.data.CategoryDataService;
-import com.enikolov.netitbackendhr.services.data.EmployerDataService;
-import com.enikolov.netitbackendhr.services.data.UserDataService;
+import com.enikolov.netitbackendhr.services.data.*;
 import com.enikolov.netitbackendhr.components.InfoMessage;
 import com.enikolov.netitbackendhr.components.SystemClock;
 import com.enikolov.netitbackendhr.enums.MessageStyle;
@@ -42,6 +38,8 @@ public class CampaignController {
     private CategoryDataService categoryDataService;
     @Autowired
     private AppliesDataService appliesDataService;
+    @Autowired
+    private MessageDataService messageDataService;
 
     @GetMapping("/campaigns/show-all")
     public String getShowAllPage(Model model){
@@ -62,7 +60,7 @@ public class CampaignController {
 
         }
 
-        if(campaignsList == null) {
+        if(campaignsList.size() == 0) {
             message = new InfoMessage();
             message.setMessage("No campaigns found");
             message.setStyle(MessageStyle.ERROR_MSG);
@@ -72,6 +70,7 @@ public class CampaignController {
         model.addAttribute("employerSelected"   , employerSelected);
         model.addAttribute("message"            , message);
         model.addAttribute("campaigns"          , campaignsList);
+        model.addAttribute("hasUnread", this.messageDataService.isUnreadMessages());
 
         return "campaigns/show-all";
     }
@@ -100,6 +99,7 @@ public class CampaignController {
         model.addAttribute("employerSelected", employerSelected);
         model.addAttribute("message"    , message);
         model.addAttribute("campaigns"  , campaignsList);
+        model.addAttribute("hasUnread", this.messageDataService.isUnreadMessages());
 
         return "campaigns/show-all";
     }
@@ -123,7 +123,7 @@ public class CampaignController {
 
         model.addAttribute("categories", this.categoryDataService.getAllCategories());
         model.addAttribute("campaign", new Campaign());
-
+        model.addAttribute("hasUnread", this.messageDataService.isUnreadMessages());
         return "campaigns/create";
     }
     @GetMapping("/campaigns/edit")
@@ -132,7 +132,7 @@ public class CampaignController {
         model.addAttribute("user", user);
 
         Campaign campaignEntity = (Campaign) model.asMap().get("campaignEntity");
-
+        model.addAttribute("hasUnread", this.messageDataService.isUnreadMessages());
         return "campaigns/edit";
     }
 
@@ -175,6 +175,7 @@ public class CampaignController {
             message.setMessage("You successfuly applied for campaing. \n The HR Agents will review your apply soon.");
             message.setStyle(MessageStyle.SUCCESS_MSG);
         }catch (Exception e){
+            e.printStackTrace();
             message.setMessage("Something went wrong, Please try again later!");
             message.setStyle(MessageStyle.ERROR_MSG);
         }
@@ -199,6 +200,7 @@ public class CampaignController {
                 message.setStyle(MessageStyle.SUCCESS_MSG);
 
             }catch (Exception e){
+                e.printStackTrace();
                 message.setMessage("Something went wrong!");
                 message.setStyle(MessageStyle.ERROR_MSG);
             }
@@ -227,6 +229,7 @@ public class CampaignController {
                 message.setMessage("Your campaign is succsessfuly deleted!");
                 message.setStyle(MessageStyle.SUCCESS_MSG);
             }catch(Exception e){
+                e.printStackTrace();
                 message.setMessage("Something went wrong");
                 message.setStyle(MessageStyle.ERROR_MSG);
             }
@@ -272,6 +275,7 @@ public class CampaignController {
             message.setStyle(MessageStyle.SUCCESS_MSG);
 
         }catch (Exception e){
+            e.printStackTrace();
             message.setMessage("Something went wrong");
             message.setStyle(MessageStyle.ERROR_MSG);
         }

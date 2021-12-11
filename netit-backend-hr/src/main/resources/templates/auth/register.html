@@ -23,6 +23,9 @@
 			<div class="center pb-16">
 				<span class="header">Sign up for your account here</span>
 			</div>
+			<div th:if="${message != null}" th:class="${message.style}">
+				<span th:text="${message.message}">InfoMessage</span>
+			</div>
 		
 			<div>
 				<form
@@ -32,25 +35,25 @@
 					th:field="*{email}"
 						class="input"  
 						type="text" 
-						placeholder="E-mail">
+						placeholder="E-mail" required>
 
 					<input
 							th:field="*{fullname}"
 							class="input"
 							type="text"
-							placeholder="Full name">
+							placeholder="Full name" required>
 						
                     <input 
 						th:field="*{password}"
                         class="input"  
                         type="password"
-                        placeholder="Password">
+                        placeholder="Password" required>
 
                     <input 
 						th:field="*{confirmPassword}"
                         class="input"  
                         type="password"
-                        placeholder="Repeat password"> 
+                        placeholder="Repeat password" required>
 						
 					<select class="input" th:field="*{userRole}">
 						<option th:value="'select'">Please select account type</option>

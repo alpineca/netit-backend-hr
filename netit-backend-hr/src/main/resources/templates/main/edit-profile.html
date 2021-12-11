@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Edit profile</title>
+    <link th:href="@{/style/global/global.css}"         rel="stylesheet" />
+    <link th:href="@{/style/global/util.css}"           rel="stylesheet" />
+    <link th:href="@{/style/global/form.css}"           rel="stylesheet" />
+    <link th:href="@{/style/page/dashboard.css}"        rel="stylesheet" />
+    <link th:href="@{/style/page/edit-profile.css}"     rel="stylesheet" />
+</head>
+
+<body>
+    
+    <div class="center ptb-8">
+        <img id="logo" src="/images/logo.png" />
+    </div>
+    <div id="app-wrapper">
+
+        <div class="navigation--main" th:replace="fragments/navigation-sidebar :: navigation-sidebar">
+        </div>
+
+        <div id="content--main">
+    <!-- START PAGE CONTENT -->
+    <!-- ****************** -->
+    <div th:if="${infoMessage != null}" th:class="${infoMessage.style}">
+        <span th:text="${infoMessage.message}">InfoMessage</span>
+    </div>
+    <div>
+        <span class="sector-title">Change User data</span>
+    </div>
+    <div class="form-container">
+        <form
+            method="post" th:object="${user}" th:action="@{/profile/edit/change-user-data}">
+
+            <input 
+            th:field="*{email}"
+                class="input"  
+                type="text" 
+                placeholder="E-mail">
+
+            <input
+                    th:field="*{fullname}"
+                    class="input"
+                    type="text"
+                    placeholder="Full name">
+            
+            <div class="buttons-div">
+                <button 
+                    class="input input-button  input-button--green login-button"
+                    type="submit">Change data</button>
+                </div>
+        </form>
+    </div>
+
+    <!--	EMPLOYER REGISTRATION FORM	-->
+    <div th:if="${user.userRole == 'EMPLOYER'}">
+            <div>
+                <span class="sector-title">Change personal data</span>
+            </div>
+            <div class="form-container">
+				<form
+					method="post" th:object="${employerData}" th:action="@{/profile/edit/change-employer-data}">
+                    <p>Your company information</p>
+
+					<input 
+						th:field="*{name}"
+						class="input"  
+						type="text" 
+						placeholder="Name of the company">
+
+                    <input 
+						th:field="*{employeesCount}"	
+                        class="input"  
+                        type="text" 
+                        placeholder="Total employees count">   
+                    
+                    <input 
+						th:field="*{address}"
+                        class="input"  
+                        type="text" 
+                        placeholder="Address">    
+
+                    <input 
+						th:field="*{webSite}"
+                        class="input"  
+                        type="text" 
+                        placeholder="Web site"> 
+						
+					<textarea 
+						th:field="*{description}"
+                        class="input input-textarea"  
+                        type="textarea" 
+                        placeholder="Describe your company"></textarea>
+					
+					<button 
+						class="input input-button input-button--green" 
+						type="submit">Change data</button>
+				</form>
+			</div>
+    </div>
+<!--	END OF EMPLOYER REGISTRATION FORM		-->
+<!--		EMPLOYEE REGISTRATION FORM	-->
+    <div th:if="${user.userRole == 'EMPLOYEE'}">
+            <div>
+                <span class="sector-title">Change personal data</span>
+            </div>
+            <div class="form-container">
+                <form
+                        method="post" th:object="${employeeData}" th:action="@{/profile/edit/change-employee-data}">
+                    <p>Your personal information</p>
+                    <input
+                            class="input"
+                            type="text"
+                            th:field="*{age}"
+                            placeholder="Your age">
+
+                    <input
+                            class="input"
+                            type="text"
+                            th:field="*{address}"
+                            placeholder="Address">
+
+                    <input
+                            class="input"
+                            type="text"
+                            th:field="*{webAddress}"
+                            placeholder="Web address(portfolio)">
+                    <input
+                            class="input"
+                            type="text"
+                            th:field="*{telephone}"
+                            placeholder="Telephone number">
+                    <input
+                            class="input"
+                            type="text"
+                            th:field="*{socialMedia}"
+                            placeholder="Social media account">
+
+                    <button
+                            class="input input-button input-button--green"
+                            type="submit">Change data</button>
+                </form>
+            </div>
+    </div>
+<!--	END OF EMPLOYEE REGISTRATION FORM		-->
+
+    <div>
+        <span class="sector-title">Change Password</span>
+    </div>
+    <div class="form-container">
+        <form
+            method="post" th:object="${passwordModel}" th:action="@{/profile/edit/change-password}">
+
+            <input
+                    th:field="*{newPassword}"
+                    class="input"
+                    type="password"
+                    placeholder="New password">
+
+            <input
+                    th:field="*{confirmNewPassword}"
+                    class="input"
+                    type="password"
+                    placeholder="Confirm new password">
+            
+            <div class="buttons-div">
+                <button 
+                    class="input input-button  input-button--green login-button"
+                    type="submit">Change password</button>
+                </div>
+        </form>
+    </div>
+
+    <!-- END PAGE CONTENT -->
+    <!-- ****************** -->
+        </div>
+    </div>
+
+</body>
+</html>

@@ -26,6 +26,13 @@ public class UserDataService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    public boolean isEmailRegistered(String email){
+        Optional<User> userModel = this.userRepository.findUserByEmail(email);
+        if(!userModel.isPresent()){
+            return true;
+        }
+        return false;
+    }
     public boolean isUserLogged(){
         try{
             this.getLoggedUser();
@@ -99,6 +106,34 @@ public class UserDataService {
         }
 
         return false;
+    }
+    public boolean isMyCurrentPasswordMatches(String password){
+        User user = this.getLoggedUser();
+        Optional<User> userModel = this.userRepository.findUserByEmailAndPassword(user.getEmail(), password);
+
+        if(userModel.isPresent()) return true;
+        return false;
+    }
+    public void changePassword(String password){
+        User user = this.getLoggedUser();
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(password);
+        user.setPassword(encodedPassword);
+
+        this.userRepository.save(user);
+    }
+    public void changeUserData(User userData){
+        User user = this.getLoggedUser();
+
+        if(!user.getEmail().equals(userData.getEmail())){
+            user.setEmail(userData.getEmail());
+        }
+        if(!user.getFullname().equals(userData.getFullname())){
+           user.setFullname(userData.getFullname());
+        }
+
+        this.userRepository.save(user);
     }
     
 }
